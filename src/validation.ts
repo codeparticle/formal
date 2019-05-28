@@ -27,7 +27,7 @@ class Validator implements Validator {
   }
 
   rules: ValidationRuleset = []
-  result: Success | Fail | null = null
+  result: ValidationM | null = null
 
   constructor(...rules: ValidationRuleset) {
     this.rules = [].concat(...rules)

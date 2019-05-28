@@ -35,7 +35,7 @@ class Fail implements Fail {
   /**
    * The .chain() for Fail takes another Success or Fail, then combines the results.
    */
-  chain(validationM: (v: any) => Success | Fail): Success | Fail {
+  chain(validationM: (v: any) => ValidationM): ValidationM {
     try {
       const result = validationM(this.value)
       checkIsValidationM(result)

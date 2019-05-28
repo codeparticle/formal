@@ -16,7 +16,7 @@ class Success implements Success {
     return new Success(fn(this.value))
   }
 
-  chain(validationFn: (v: any) => Success | Fail): Success | Fail {
+  chain(validationFn: (v: any) => ValidationM): ValidationM {
     try {
       const result = validationFn(this.value)
       checkIsValidationM(result)

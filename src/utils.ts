@@ -5,7 +5,7 @@
  * @license MIT
  */
 
-class ValidationError extends Error { }
+class ValidationError extends Error {}
 
 /**
  * id function - returns whatever its input is.
@@ -51,7 +51,7 @@ Check the type of ${fn.constructor.name} - was it written using createRule?.
  * @param {Function} validator - Parameter description.
  * @throws {Exception Type} Exception description.
  */
-const checkIsValidationM = (validator: Success | Fail): void => {
+const checkIsValidationM = (validator: ValidationM): void => {
   if (
     !(
       validator.hasOwnProperty('value') && validator.hasOwnProperty('isSuccess')

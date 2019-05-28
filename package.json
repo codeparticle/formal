@@ -12,7 +12,7 @@
   "main": "./bundles/index.umd.js",
   "module": "./esm5/index.js",
   "es2015": "./esm2015/index.js",
-  "typings": "./types/index.d.ts",
+  "typings": "./dist/types/index.d.ts",
   "sideEffects": false,
   "repository": {
     "type": "git",
@@ -59,7 +59,6 @@
   },
   "husky": {
     "hooks": {
-      "commit-msg": "commitlint --config config/commitlint.config.js -E HUSKY_GIT_PARAMS",
       "pre-commit": "lint-staged",
       "pre-push": "npm run style && npm test -- --bail --onlyChanged"
     }
