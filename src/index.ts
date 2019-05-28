@@ -1,5 +1,5 @@
 import { Fail } from './fail';
-import * as rules from './lib/rules';
+import * as rules from './rules';
 import { Success } from './success';
 import { pipeValidators } from './utils';
 import { createRule, Validator } from './validation';

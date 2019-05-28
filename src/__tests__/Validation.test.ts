@@ -1,5 +1,5 @@
 import { test } from 'shelljs';
-import { getProp, isNumber, isObject, isString } from '../lib/rules';
+import { getProp, isNumber, isObject, isString } from '../rules';
 import { id } from '../utils';
 import { Validator } from '../validation';
 
