@@ -4,24 +4,24 @@
  * **NOTE:**
  * 👉 This file should not use any 3rd party dependency
  */
-const { writeFileSync, copyFileSync, statSync } = require('fs')
-const { resolve, basename } = require('path')
-const packageJson = require('../package.json')
+const { writeFileSync, copyFileSync, statSync } = require('fs');
+const { resolve, basename } = require('path');
+const packageJson = require('../package.json');
 
-main()
+main();
 
 function main() {
-  const projectRoot = resolve(__dirname, '..')
-  const distPath = resolve(projectRoot, 'dist')
-  const distPackageJson = createDistPackageJson(packageJson)
+  const projectRoot = resolve(__dirname, '..');
+  const distPath = resolve(projectRoot, 'dist');
+  const distPackageJson = createDistPackageJson(packageJson);
 
   const cpFiles = ['README.md', 'CHANGELOG.md', 'LICENSE.md', '.npmignore'].map(
     (file) => resolve(projectRoot, file)
-  )
+  );
 
-  cp(cpFiles, distPath)
+  cp(cpFiles, distPath);
 
-  writeFileSync(resolve(distPath, 'package.json'), distPackageJson)
+  writeFileSync(resolve(distPath, 'package.json'), distPackageJson);
 }
 
 /**
@@ -30,23 +30,23 @@ function main() {
  * @param {string} target
  */
 function cp(source, target) {
-  const isDir = statSync(target).isDirectory()
+  const isDir = statSync(target).isDirectory();
 
   if (isDir) {
     if (!Array.isArray(source)) {
       throw new Error(
         'if <target> is directory you need to provide source as an array'
-      )
+      );
     }
 
     source.forEach((file) =>
       copyFileSync(file, resolve(target, basename(file)))
-    )
+    );
 
-    return
+    return;
   }
 
-  copyFileSync(/** @type {string} */ (source), target)
+  copyFileSync(/** @type {string} */ (source), target);
 }
 
 /**
@@ -62,7 +62,7 @@ function createDistPackageJson(packageConfig) {
     husky,
     'lint-staged': lintStaged,
     ...distPackageJson
-  } = packageConfig
+  } = packageConfig;
 
-  return JSON.stringify(distPackageJson, null, 2)
+  return JSON.stringify(distPackageJson, null, 2);
 }

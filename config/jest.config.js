@@ -22,6 +22,6 @@ const config = {
     'jest-watch-typeahead/filename',
     'jest-watch-typeahead/testname',
   ],
-}
+};
 
-module.exports = config
+module.exports = config;

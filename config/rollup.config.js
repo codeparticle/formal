@@ -1,19 +1,19 @@
-import { resolve } from 'path'
-import sourceMaps from 'rollup-plugin-sourcemaps'
-import nodeResolve from 'rollup-plugin-node-resolve'
-import json from 'rollup-plugin-json'
-import commonjs from 'rollup-plugin-commonjs'
-import replace from 'rollup-plugin-replace'
-import { uglify } from 'rollup-plugin-uglify'
-import { terser } from 'rollup-plugin-terser'
-import { getIfUtils, removeEmpty } from 'webpack-config-utils'
+import { resolve } from 'path';
+import sourceMaps from 'rollup-plugin-sourcemaps';
+import nodeResolve from 'rollup-plugin-node-resolve';
+import json from 'rollup-plugin-json';
+import commonjs from 'rollup-plugin-commonjs';
+import replace from 'rollup-plugin-replace';
+import { uglify } from 'rollup-plugin-uglify';
+import { terser } from 'rollup-plugin-terser';
+import { getIfUtils, removeEmpty } from 'webpack-config-utils';
 
-import pkg from '../package.json'
+import pkg from '../package.json';
 const {
   pascalCase,
   normalizePackageName,
   getOutputFileName,
-} = require('./helpers')
+} = require('./helpers');
 
 /**
  * @typedef {import('./types').RollupConfig} Config
@@ -22,12 +22,12 @@ const {
  * @typedef {import('./types').RollupPlugin} Plugin
  */
 
-const env = process.env.NODE_ENV || 'development'
-const { ifProduction } = getIfUtils(env)
+const env = process.env.NODE_ENV || 'development';
+const { ifProduction } = getIfUtils(env);
 
-const LIB_NAME = pascalCase(normalizePackageName(pkg.name))
-const ROOT = resolve(__dirname, '..')
-const DIST = resolve(ROOT, 'dist')
+const LIB_NAME = pascalCase(normalizePackageName(pkg.name));
+const ROOT = resolve(__dirname, '..');
+const DIST = resolve(ROOT, 'dist');
 
 /**
  * Object literals are open-ended for js checking, so we need to be explicit
@@ -39,12 +39,12 @@ const PATHS = {
     esm2015: resolve(DIST, 'esm2015'),
   },
   bundles: resolve(DIST, 'bundles'),
-}
+};
 
 /**
  * @type {string[]}
  */
-const external = Object.keys(pkg.peerDependencies) || []
+const external = Object.keys(pkg.peerDependencies) || [];
 
 /**
  *  @type {Plugin[]}
@@ -69,7 +69,7 @@ const plugins = /** @type {Plugin[]} */ ([
     exclude: 'node_modules/**',
     'process.env.NODE_ENV': JSON.stringify(env),
   }),
-])
+]);
 
 /**
  * @type {Config}
@@ -80,7 +80,7 @@ const CommonConfig = {
   inlineDynamicImports: true,
   // Indicate here external modules you don't wanna include in your bundle (i.e.: 'lodash')
   external,
-}
+};
 
 /**
  * @type {Config}
@@ -100,7 +100,7 @@ const UMDconfig = {
   plugins: removeEmpty(
     /** @type {Plugin[]} */ ([...plugins, ifProduction(uglify())])
   ),
-}
+};
 
 /**
  * @type {Config}
@@ -121,6 +121,6 @@ const FESMconfig = {
   plugins: removeEmpty(
     /** @type {Plugin[]} */ ([...plugins, ifProduction(terser())])
   ),
-}
+};
 
-export default [UMDconfig, FESMconfig]
+export default [UMDconfig, FESMconfig];

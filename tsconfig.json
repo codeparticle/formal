@@ -29,7 +29,8 @@
     ]
   },
   "include": [
-    "./src"
+    "./src",
+    "./src/types"
   ],
   "compileOnSave": false
 }
