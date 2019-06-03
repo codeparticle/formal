@@ -12,7 +12,7 @@
   "main": "./bundles/index.umd.js",
   "module": "./esm5/index.js",
   "es2015": "./esm2015/index.js",
-  "typings": "./src/types/index.ts",
+  "typings": "./types/index.d.ts",
   "sideEffects": false,
   "repository": {
     "type": "git",
