@@ -1,4 +1,4 @@
-declare interface Validator {
+export interface Validator {
   rules: ValidationRuleset;
   result: ValidationM | null;
   of(rules: ValidationRuleset): Validator;
@@ -6,19 +6,19 @@ declare interface Validator {
   then(opts: ValidationActions): any;
 }
 
-declare interface ValidationActions {
+export interface ValidationActions {
   onSuccess: (v: any) => any;
   onFail: (v: string[]) => any;
 }
 
-declare interface CustomValidatorOptions {
+export interface CustomValidatorOptions {
   condition: (v: any) => boolean;
   message: string | ((v: any) => string);
 }
 
-declare type ValidationM = Success | Fail;
+export type ValidationM = Success | Fail;
 
-declare interface Fail {
+export interface Fail {
   value: any;
   isSuccess: boolean;
   map(fn: (value: any) => any): Fail;
@@ -26,7 +26,7 @@ declare interface Fail {
   fold(opts: ValidationActions): any;
 }
 
-declare interface Success {
+export interface Success {
   value: any;
   isSuccess: boolean;
   map(fn: (value: any) => any): Success;
@@ -34,6 +34,6 @@ declare interface Success {
   fold(opts: ValidationActions): any;
 }
 
-declare type ValidationRule = (v: any) => ValidationM;
-declare type ValidationRuleset = ValidationRule[];
-declare type ValidationErrorMessage = (fn: (v: any) => any) => string;
+export type ValidationRule = (v: any) => ValidationM;
+export type ValidationRuleset = ValidationRule[];
+export type ValidationErrorMessage = (fn: (v: any) => any) => string;

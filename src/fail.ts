@@ -4,7 +4,7 @@
  * @author Nick Krause
  * @license MIT
  */
-
+import { ValidationActions, ValidationM } from './types';
 import { checkIsValidationM } from './utils';
 
 class Fail implements Fail {

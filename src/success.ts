@@ -1,3 +1,4 @@
+import { ValidationActions, ValidationM } from './types';
 import { checkIsValidationM } from './utils';
 
 class Success implements Success {

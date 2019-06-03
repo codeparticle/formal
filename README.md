@@ -112,6 +112,29 @@ export const getProp = (propName) => (obj) => {
 };
 ```
 
+## Usage with Typescript
+
+This package exports TS type definitions in the `/types` folder.
+
+```ts
+import {
+  // interfaces for the Success and Fail classes
+  Success,
+  Fail,
+  // used to specify the argument structure to `createValidator`
+  CustomValidationOptions,
+  // options supplied to Validator.then
+  ValidationActions,
+  // alias for `Success | Fail` in cases where both are needed.
+  ValidationM,
+  // aliases for a single or array of validation rules provided to Validator.of
+  ValidationRule,
+  ValidationRuleSet,
+  // interface for the Validator class
+  Validator,
+} from '@codeparticle/formal/types';
+```
+
 [![Build Status](https://travis-ci.org/codeparticle/codeparticle-formal.svg?branch=master)](https://travis-ci.org/codeparticle/codeparticle-formal)
 [![NPM version](https://img.shields.io/npm/v/@codeparticle/codeparticle-formal.svg)](https://www.npmjs.com/package/@codeparticle/codeparticle-formal)
 ![Downloads](https://img.shields.io/npm/dm/@codeparticle/codeparticle-formal.svg)

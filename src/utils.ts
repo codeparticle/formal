@@ -4,6 +4,7 @@
  * @author Nick Krause
  * @license MIT
  */
+import { ValidationM, ValidationRule, ValidationRuleset } from './types';
 
 class ValidationError extends Error {}
 

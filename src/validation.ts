@@ -1,5 +1,12 @@
 import { Fail } from './fail';
 import { Success } from './success';
+import {
+  CustomValidatorOptions,
+  ValidationActions,
+  ValidationM,
+  ValidationRule,
+  ValidationRuleset,
+} from './types';
 import { pipeValidators, ValidationError } from './utils';
 
 /**
