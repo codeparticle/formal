@@ -5,7 +5,7 @@
 ### 🔧 Installation
 
 ```sh
-yarn add @codeparticle/codeparticle-formal
+yarn add @codeparticle/formal
 ```
 
 ## Usage
