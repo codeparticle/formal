@@ -2,7 +2,11 @@
 
 > A simple data and form validation library with a wide range of possibilities.
 
-`npm i @codeparticle/formal`
+### 🔧 Installation
+
+```sh
+yarn add @codeparticle/codeparticle-formal
+```
 
 ## Usage
 
@@ -10,50 +14,53 @@ Formal makes it simple to validate arbitrary data with whatever rules you'd like
 
 Here's a playful example:
 
-```
-import { Validator } from '@codeparticle/formal'
-import { isString, minLength } from '@codeparticle/lib/rules'
+```ts
+import { Validator } from '@codeparticle/formal';
+import { isString, minLength } from '@codeparticle/lib/rules';
 
 const techPitchValidator = Validator.of(
   isString,
   minLength(32),
   maxLength(256)
-)
+);
 
 const validPitch = "It's like your favorite social network, but for dogs";
 const invalidPitch = "It's an AI to rule us all";
 
-const validResult = techPitchValidator.validate(validPitch).map(str => str.toUpperCase());;
+const validResult = techPitchValidator
+  .validate(validPitch)
+  .map((str) => str.toUpperCase());
 // returns Success("IT'S LIKE YOUR FAVORITE SOCIAL NETWORK, BUT FOR DOGS") - maps can change successfully checked values
 
-const invalidResult = techPitchValidator.validate(invalidPitch).map(str => str.toUpperCase());
+const invalidResult = techPitchValidator
+  .validate(invalidPitch)
+  .map((str) => str.toUpperCase());
 // returns Fail('Must be at least 32 characters') - maps have no effect on failures
-
 
 validResult.then({
   onSuccess: () => alert("We love it kid. Here's 5 million."),
-  onFail: (errs) => console.log(errs) // can also simply be console.log
-})
+  onFail: (errs) => console.log(errs), // can also simply be console.log
+});
 
 invalidResult.then({
   onSuccess: () => alert("We love it kid. Here's 5 million."),
-  onFail: (errs) => errs.map(console.log) // 'Must be at least 32 characters'
+  onFail: (errs) => errs.map(console.log), // 'Must be at least 32 characters'
 });
-
 ```
 
 ### Built-in Validators
 
 Formal has a small set of useful checks built in to validate simple data.
 
-```
+```ts
 import {
-  // Checks to make sure we have a string. Takes no value.
+  // Basic checks that take no arguments when used in Validator.of
   isString,
-  // Checks to make sure we
   isNumber,
   isObject,
   isArray,
+  isNonEmptyObject,
+  isNonEmptyArray,
   // Check that a string is x-characters long. Takes a value for the minimum. `minLength(10)`
   minLength,
   // Check that a string is no more than x-characters long. Takes a value for the maximum. `maxLength(50)`
@@ -78,22 +85,23 @@ Using `createRule` is a quick way to check things that _don't change the value t
 
 `createRule` takes two (required) options - a condition function, and a message. The message can be a string, or it can be a function that returns a string, in case you'd like to tailor your messages.
 
-```
+```ts
 import { createRule } from '@codeparticle/formal';
-export const containsMatchingString = (match) => createRule({
-  condition: (str) => str.includes(match),
-  message: (failedStr) => `Value ${failedStr} does not include today's date.`
-});
+export const containsMatchingString = (match) =>
+  createRule({
+    condition: (str) => str.includes(match),
+    message: (failedStr) => `Value ${failedStr} does not include today's date.`,
+  });
 ```
 
 Formal also allows more customized checks by exposing `Success` and `Fail`. These are useful in cases where you want to do something when you want to change the output, such as drilling down through nested properties while checking that they exist first.
 
-```
-import { Success, Fail } from '@codeparticle/formal'
+```ts
+import { Success, Fail } from '@codeparticle/formal';
 
 export const getProp = (propName) => (obj) => {
   if (typeof obj !== 'object') {
-    return Fail.of('Value is not an object.')
+    return Fail.of('Value is not an object.');
   }
 
   if (obj.hasOwnProperty(propName)) {
@@ -101,7 +109,7 @@ export const getProp = (propName) => (obj) => {
   }
 
   return Fail.of(`Object does not contain property "${propName}"`);
-}
+};
 ```
 
 [![Build Status](https://travis-ci.org/codeparticle/codeparticle-formal.svg?branch=master)](https://travis-ci.org/codeparticle/codeparticle-formal)
@@ -112,52 +120,6 @@ export const getProp = (propName) => (obj) => {
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 
 ---
-
-### ✨ Features
-
-- feature one
-- feature two
-
-### 🔧 Installation
-
-```sh
-yarn add @codeparticle/codeparticle-formal
-```
-
-### 🎬 Getting started
-
-Let's demonstrate simple usage with ... example:
-
-```ts
-// your code example
-```
-
-### 🎭 Examples
-
-Go checkout [examples](./examples) !
-
-### 📜 API
-
-> Document your API here
-
-#### `publicMethodOne(value:string): string`
-
-This methods does foo bar moo...
-
-**Example:**
-
-```ts
-// example
-```
-
-### 🎓 Guides
-
-<details>
-<summary>How to do Foo</summary>
-Today we're gonna build Foo....
-</details>
-
-#### 🕵️ Troubleshooting
 
 ### 🥂 License
 
