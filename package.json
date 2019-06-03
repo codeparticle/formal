@@ -1,6 +1,6 @@
 {
   "name": "@codeparticle/formal",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A <2kb library for validating data of any kind",
   "keywords": [
     "validation",
@@ -12,7 +12,7 @@
   "main": "./bundles/index.umd.js",
   "module": "./esm5/index.js",
   "es2015": "./esm2015/index.js",
-  "typings": "./src/types/index.d.ts",
+  "typings": "./src/types/index.ts",
   "sideEffects": false,
   "repository": {
     "type": "git",
