@@ -1,6 +1,6 @@
 {
   "name": "@codeparticle/formal",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "A <2kb library for validating data of any kind",
   "keywords": [
     "validation",
@@ -47,7 +47,7 @@
     "release": "standard-version",
     "postrelease": "node scripts/copy && node scripts/build && npm run release:github && npm run release:npm",
     "release:github": "git push --no-verify --follow-tags origin master",
-    "release:npm": "npm publish dist",
+    "release:npm": "npm publish dist --access public",
     "release:preflight": "npm pack ./dist --dry-run",
     "size": "node scripts/file-size ./dist/bundles/index.umd.min.js ./dist/bundles/index.esm.min.js"
   },
