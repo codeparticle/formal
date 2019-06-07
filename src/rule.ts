@@ -54,9 +54,11 @@ const createRule: (opts: CustomValidatorOptions) => ValidationRule = (opts) => {
 const withMessage = (message: string | ((v?: any) => string)) => (
   rule: ValidationRule
 ) => {
-  rule.opts.message = message;
+  const copiedRule = { ...rule };
 
-  return rule;
+  copiedRule.opts.message = message;
+
+  return copiedRule;
 };
 
 export { Rule, createRule, withMessage };

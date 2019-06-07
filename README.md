@@ -119,6 +119,8 @@ import {
 
 Sometimes, the messages included with built-in or existing checks need to be modified after the fact. Formal supports this via the `withMessage` function.
 
+`withMessage` creates a new copy of the rule, so don't worry about accidentally overwriting something important when using it. Like `createRule`, you can supply a string, or a function that returns a string.
+
 ```ts
 import { withMessage, rules } from '@codeparticle/formal';
 
@@ -133,13 +135,19 @@ const withInternationalizedErrorMessage = withMessage(
   intl.formatMessage('form.error.message')
 );
 
+const withNewMessageFn = withMessage(
+  (badValue) => `${badValue} is invalid for this field.`
+);
+
 const adminFormFieldCheck = withAdminFormErrorMessage(rules.isString);
 
 const userFormFieldCheck = withUserFormErrorMessage(rules.isString);
 
-const internationalizedErrorMessage = withInternationalizedErrorMessage(
+const internationalizedFieldCheck = withInternationalizedErrorMessage(
   rules.isString
 );
+
+const customMessageFunctionFieldCheck = withNewMessageFn(rules.isString);
 ```
 
 ## Creating your own validators
