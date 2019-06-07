@@ -1,7 +1,5 @@
-import { Fail } from './fail';
-import { Success } from './success';
+import { Rule } from './rule';
 import {
-  CustomValidatorOptions,
   ValidationActions,
   ValidationM,
   ValidationRule,
@@ -14,19 +12,6 @@ import { pipeValidators, ValidationError } from './utils';
  * based on the passing of a supplied condition
  *
  */
-const createRule: (opts: CustomValidatorOptions) => ValidationRule = (opts) => (
-  value
-) => {
-  if (opts.condition(value)) {
-    return Success.of(value);
-  } else {
-    if (typeof opts.message === 'function') {
-      return Fail.of(opts.message(value));
-    }
-
-    return Fail.of(opts.message);
-  }
-};
 
 class Validator implements Validator {
   static of(...rules: ValidationRuleset) {
@@ -66,4 +51,4 @@ class Validator implements Validator {
   }
 }
 
-export { createRule, Validator };
+export { Validator };
