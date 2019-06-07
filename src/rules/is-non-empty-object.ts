@@ -3,13 +3,17 @@
  * @author Nick Krause
  * @license MIT
  */
-import { Fail } from '../fail';
-import { Success } from '../success';
-import { isObject } from './is-object';
+import { createRule } from '../rule';
 
-export const isNonEmptyObject = (maybeObj: any) =>
-  isObject(maybeObj).chain((obj) =>
-    Object.keys(obj).length
-      ? Success.of(obj)
-      : Fail.of(`Object has no properties.`)
-  );
+export const isNonEmptyObject = createRule({
+  // Reflect.ownKeys is used because
+  // this check should not fail if we only have
+  // properties that are non-enumerable
+  // like 'Symbol' or properties defined by Object.defineProperty where
+  // 'enumerable' is set to false.
+  condition: (obj) => typeof obj === 'object' && !!Reflect.ownKeys(obj).length,
+  message: (obj) =>
+    typeof obj === 'object'
+      ? `Value ${obj} is not a non–empty object`
+      : `Value is not an object`,
+});

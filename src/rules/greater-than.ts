@@ -5,7 +5,7 @@
  * @license MIT
  */
 
-import { createRule } from '../validation';
+import { createRule } from '../rule';
 
 export const greaterThan = (min) =>
   createRule({
