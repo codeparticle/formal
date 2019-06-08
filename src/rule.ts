@@ -29,11 +29,9 @@ class Rule implements ValidationRule {
 
       return Success.of(value);
     } else {
-      if (typeof this.opts.message === 'function') {
-        return Fail.of(this.opts.message(value));
-      }
-
-      return Fail.of(this.opts.message);
+      return typeof this.opts.message === 'function'
+        ? Fail.of(this.opts.message(value))
+        : Fail.of(this.opts.message);
     }
   };
 }
