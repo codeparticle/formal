@@ -57,7 +57,7 @@ import { pipeValidators, rules } from '@codeparticle/formal';
 const { isString, minLength } = rules;
 
 // ...
-const isLongString = pipeValidators(isString, minLength(50));
+const isLongString = pipeValidators([isString, minLength(50)]);
 
 values
   .filter((val) => isLongString(val).isSuccess)
@@ -77,7 +77,7 @@ const testObjects = [
   { required: 'wrong' },
 ];
 
-const check = pipeValidators(isObject, getProp('required'));
+const check = pipeValidators([isObject, getProp('required')]);
 
 for (const test of testObjects) {
   expect(check(test).isSuccess).toBe(true); // passes
