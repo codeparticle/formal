@@ -5,12 +5,14 @@
  * @license MIT
  */
 
-import { Fail } from '../fail';
-import { Success } from '../success';
+import { createRule } from '../rule';
 import { hasProp } from './has-prop';
 
-export const getProp = (property) => (obj) =>
-  hasProp(property)(obj).fold({
-    onSuccess: () => new Success(obj[property]),
-    onFail: () => new Fail(`Property '${property}' does not exist`),
+export const getProp = (property) =>
+  createRule({
+    condition: (obj) => hasProp(property).check(obj).isSuccess,
+    message: `Property '${property}' does not exist`,
+    // transform the object to the value of the successfully found property
+    // before handing off to the next check / function.
+    transform: (obj) => obj[property],
   });

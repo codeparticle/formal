@@ -4,7 +4,7 @@
  * @author Nick Krause
  * @license MIT
  */
-import { ValidationM, ValidationRule, ValidationRuleset } from './types';
+import { ValidationCheck, ValidationM, ValidationRuleset } from './types';
 
 class ValidationError extends Error {}
 
@@ -15,7 +15,7 @@ class ValidationError extends Error {}
  */
 const id = (x: any) => x;
 
-const pipeValidators: (fns: ValidationRuleset) => ValidationRule = (fns) => (
+const pipeValidators: (fns: ValidationRuleset) => ValidationCheck = (fns) => (
   value: any
 ) => {
   const [first, ...rest] = fns;
@@ -23,7 +23,10 @@ const pipeValidators: (fns: ValidationRuleset) => ValidationRule = (fns) => (
   // starting with the first function that returns a monad,
   // we chain through the rest of the functions
   // in order to combine them all into a single check.
-  return rest.reduce((prevM, nextM) => prevM.chain(nextM), first(value));
+  return rest.reduce(
+    (prevM, nextM) => prevM.chain(nextM.check),
+    first.check(value)
+  );
 };
 
 /**

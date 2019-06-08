@@ -1,4 +1,4 @@
-import { createRule } from '../validation';
+import { createRule } from '../rule';
 
 /**
  * Function to ensure that a string is below or equal to a certain length.

@@ -48,6 +48,44 @@ invalidResult.then({
 });
 ```
 
+formal is flexible to your style, and exposes a `pipeValidators` function for writing validations in a more functional way. It condenses multiple checks into a function that encloses a value into a `Success` or `Fail` container.
+
+Once run, these validation containers are supplied with an `isSuccess` property for use in filters,with the ability to reach for the internally held `value`. While not recommended for control flow, it's useful in cases where you're running validation over a long list of items, as well as in writing test cases.
+
+```ts
+import { pipeValidators, rules } from '@codeparticle/formal';
+const { isString, minLength } = rules;
+
+// ...
+const isLongString = pipeValidators(isString, minLength(50));
+
+values
+  .filter((val) => isLongString(val).isSuccess)
+  .map((container) => container.value)
+  .map((str) => console.log(str));
+
+// this technique can make testing a breeze.
+
+// here, we want all of our objects to have a common property; maybe a required prop in a react component.
+
+// while a bit contrived here, this method makes tests over complex, nested objects
+// or other data simple to do.
+
+const testObjects = [
+  { required: 'present' },
+  { required: 'present' },
+  { required: 'wrong' },
+];
+
+const check = pipeValidators(isObject, getProp('required'));
+
+for (const test of testObjects) {
+  expect(check(test).isSuccess).toBe(true); // passes
+
+  expect(check(test).value).toBe('present'); // fails
+}
+```
+
 ### Built-in Validators
 
 Formal has a small set of useful checks built in to validate simple data.
@@ -77,6 +115,41 @@ import {
 ...
 ```
 
+### Customizing built-in or existing checks
+
+Sometimes, the messages included with built-in or existing checks need to be modified after the fact. Formal supports this via the `withMessage` function.
+
+`withMessage` creates a new copy of the rule, so don't worry about accidentally overwriting something important when using it. Like `createRule`, you can supply a string, or a function that returns a string.
+
+```ts
+import { withMessage, rules } from '@codeparticle/formal';
+
+const withAdminFormErrorMessage = withMessage(
+  `Admins must enter an administrator ID.`
+);
+const withUserFormErrorMessage = withMessage(
+  `Users must enter their first and last name to sign up`
+);
+
+const withInternationalizedErrorMessage = withMessage(
+  intl.formatMessage('form.error.message')
+);
+
+const withNewMessageFn = withMessage(
+  (badValue) => `${badValue} is invalid for this field.`
+);
+
+const adminFormFieldCheck = withAdminFormErrorMessage(rules.isString);
+
+const userFormFieldCheck = withUserFormErrorMessage(rules.isString);
+
+const internationalizedFieldCheck = withInternationalizedErrorMessage(
+  rules.isString
+);
+
+const customMessageFunctionFieldCheck = withNewMessageFn(rules.isString);
+```
+
 ## Creating your own validators
 
 Formal gives you the ability to create your own rules to supply to `Validator`. There are two ways to do so.
@@ -94,22 +167,22 @@ export const containsMatchingString = (match) =>
   });
 ```
 
-Formal also allows more customized checks by exposing `Success` and `Fail`. These are useful in cases where you want to do something when you want to change the output, such as drilling down through nested properties while checking that they exist first.
+createRule also allows more customized checks through an optional parameter called `transform`
+that allows for a transformation of the value _before_ it's handed off to the next validation check.
 
 ```ts
-import { Success, Fail } from '@codeparticle/formal';
+import { createRule } from '../rule';
+import { hasProp } from './has-prop';
 
-export const getProp = (propName) => (obj) => {
-  if (typeof obj !== 'object') {
-    return Fail.of('Value is not an object.');
-  }
-
-  if (obj.hasOwnProperty(propName)) {
-    return Success.of(obj[propName]);
-  }
-
-  return Fail.of(`Object does not contain property "${propName}"`);
-};
+// below is the actual source code of the built-in getProp function
+export const getProp = (property) =>
+  createRule({
+    condition: (obj) => hasProp(property).check(obj).isSuccess,
+    message: `Property '${property}' does not exist`,
+    // transform the object to the value of the successfully found property
+    // before handing off to the next check / function.
+    transform: (obj) => obj[property],
+  });
 ```
 
 ## Usage with Typescript
@@ -129,6 +202,8 @@ import {
   ValidationM,
   // aliases for a single or array of validation rules provided to Validator.of
   ValidationRule,
+  // alias for a function that returns a Success or Failure.
+  ValidationCheck,
   ValidationRuleSet,
   // interface for the Validator class
   Validator,
