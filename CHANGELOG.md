@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.2.0"></a>
+
+# [0.2.0](https://github.com/codeparticle/formal/compare/v0.0.6...v0.2.0) (2019-06-08)
+
+### Features
+
+- **rules:** updated createRule to accept a transform prop to change the value of the output validation ([e09ce49](https://github.com/codeparticle/formal/commit/e09ce49))
+- **tests:** updated tests to include new Rule class. ([67dfac2](https://github.com/codeparticle/formal/commit/67dfac2))
+- **withMessage:** added withMessage function to overwrite messages in built-in checks. ([7e49a92](https://github.com/codeparticle/formal/commit/7e49a92))
+- updated README ([b799586](https://github.com/codeparticle/formal/commit/b799586))
+
 <a name="0.1.0"></a>
 
 # [0.1.0](https://github.com/codeparticle/formal/compare/v0.0.6...v0.1.0) (2019-06-08)
