@@ -6,7 +6,8 @@
 import { createRule } from '../rule';
 
 export const isNonEmptyString = createRule({
-  condition: (maybeStr) => typeof maybeStr === 'string' && !!maybeStr.length,
+  condition: (maybeStr) =>
+    typeof maybeStr === 'string' && Boolean(maybeStr.length),
   message: (failed) =>
     typeof failed === 'string'
       ? `Value ${failed} is not a string`
