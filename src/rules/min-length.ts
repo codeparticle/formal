@@ -1,4 +1,4 @@
-import { createRule } from '../validation';
+import { createRule } from '../rule';
 
 export const minLength = (length) =>
   createRule({

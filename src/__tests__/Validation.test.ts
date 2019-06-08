@@ -1,4 +1,9 @@
+/**
+ * @file Unit tests for @codeparticle/formal
+ */
+
 import { test } from 'shelljs';
+import { createRule, withMessage } from '../rule';
 import { getProp, isNumber, isObject, isString } from '../rules';
 import { id } from '../utils';
 import { Validator } from '../validation';
@@ -63,5 +68,29 @@ describe('Validation', () => {
     expect(failedNumber.then(testOpts)).toMatchObject([
       'Value wow is not a number.',
     ]);
+  });
+});
+
+describe('Rule', () => {
+  const customRule = createRule({
+    condition: (val) => val > 3,
+    message: 'value must be greater than 3',
+  });
+  it('allows for initialization through createRule', () => {
+    expect(customRule.check(3).isSuccess).toBe(false);
+    expect(customRule.check(5).isSuccess).toBe(true);
+    expect(customRule.check(3).value[0]).toBe('value must be greater than 3');
+  });
+
+  it('allows for overwriting the message of an existing rule using withMessage', () => {
+    const overwriteText = withMessage('Whoa');
+    const newRule = overwriteText(customRule);
+    const overwriteFn = withMessage((d) => `Man, that's a crooked ${d}`);
+
+    expect(newRule.check(2).isSuccess).toBe(false);
+    expect(newRule.check(2).value[0]).toBe('Whoa');
+    expect(overwriteFn(newRule).check(2).value[0]).toBe(
+      "Man, that's a crooked 2"
+    );
   });
 });

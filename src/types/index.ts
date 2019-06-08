@@ -6,6 +6,12 @@ export interface Validator {
   then(opts: ValidationActions): any;
 }
 
+export interface ValidationRule {
+  message: string | ((v?: any) => string);
+  opts: CustomValidatorOptions;
+  check(v: any): ValidationM;
+}
+
 export interface ValidationActions {
   onSuccess: (v: any) => any;
   onFail: (v: string[]) => any;
@@ -14,6 +20,13 @@ export interface ValidationActions {
 export interface CustomValidatorOptions {
   condition: (v: any) => boolean;
   message: string | ((v: any) => string);
+  // function to ensure delayed execution
+  // so that we don't get any accidental
+  // access errors in the middle of
+  // a long list of checks.
+  // value works the same way as condition,
+  // using the value being checked as an argument.
+  transform?: (v: any) => any;
 }
 
 export type ValidationM = Success | Fail;
@@ -34,6 +47,6 @@ export interface Success {
   fold(opts: ValidationActions): any;
 }
 
-export type ValidationRule = (v: any) => ValidationM;
+export type ValidationCheck = (v: any) => ValidationM;
 export type ValidationRuleset = ValidationRule[];
 export type ValidationErrorMessage = (fn: (v: any) => any) => string;

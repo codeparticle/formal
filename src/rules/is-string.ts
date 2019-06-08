@@ -4,9 +4,9 @@
  * @license MIT
  */
 
-import { createRule } from '../validation';
+import { createRule } from '../rule';
 
 export const isString = createRule({
   condition: (maybeStr) => typeof maybeStr === 'string',
-  message: (notStr) => `Value ${notStr.toString()} is not a string.`,
+  message: (notStr) => `Value ${notStr} is not a string.`,
 });

@@ -4,7 +4,7 @@
  * @author Nick Krause
  * @license MIT
  */
-import { createRule } from '../validation';
+import { createRule } from '../rule';
 
 export const isObject = createRule({
   condition: (obj) => typeof obj === 'object',

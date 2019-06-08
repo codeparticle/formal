@@ -3,11 +3,9 @@
  * @author Nick Krause
  * @license MIT
  */
-import { Fail } from '../fail';
-import { Success } from '../success';
-import { isArray } from './is-array';
+import { createRule } from '../rule';
 
-export const isNonEmptyArray = (maybeArr) =>
-  isArray(maybeArr).chain((arr) =>
-    arr.length ? Success.of(arr) : Fail.of(arr)
-  );
+export const isNonEmptyArray = createRule({
+  condition: (arr) => Array.isArray(arr) && !!arr.length,
+  message: (val) => `No array values found in ${val}`,
+});

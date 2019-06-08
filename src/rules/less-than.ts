@@ -4,7 +4,7 @@
  * @author Nick Krause
  * @license MIT
  */
-import { createRule } from '../validation';
+import { createRule } from '../rule';
 
 /**
  * Rule to validate a number that must be less than some amount.
