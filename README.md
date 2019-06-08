@@ -57,12 +57,12 @@ import { pipeValidators, rules } from '@codeparticle/formal';
 const { isString, minLength } = rules;
 
 // ...
-const longString = pipeValidators(isString, minLength(50));
+const isLongString = pipeValidators(isString, minLength(50));
 
-longList
-  .filter((val) => longString(val).isSuccess)
+values
+  .filter((val) => isLongString(val).isSuccess)
   .map((container) => container.value)
-  .map((longString) => console.log(longString));
+  .map((str) => console.log(str));
 
 // this technique can make testing a breeze.
 
