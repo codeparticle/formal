@@ -14,6 +14,6 @@ export const isNonEmptyObject = createRule({
   condition: (obj) => typeof obj === 'object' && !!Reflect.ownKeys(obj).length,
   message: (obj) =>
     typeof obj === 'object'
-      ? `Value ${obj} is not a non–empty object`
-      : `Value is not an object`,
+      ? `Object must not be empty`
+      : `Value ${obj} is not an object`,
 });
