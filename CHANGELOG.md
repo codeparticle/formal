@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.2.0"></a>
+
+# [0.2.0](https://github.com/codeparticle/formal/compare/v0.1.0...v0.2.0) (2019-06-10)
+
+### Bug Fixes
+
+- **builtins:** clarity and edge-case fixes ([f3e6a2c](https://github.com/codeparticle/formal/commit/f3e6a2c))
+
+### Features
+
+- **builtins:** added isNonEmptyString, matchesRegex, and isValidEmail. ([bb0447a](https://github.com/codeparticle/formal/commit/bb0447a))
+
 <a name="0.1.0"></a>
 
 # [0.1.0](https://github.com/codeparticle/formal/compare/v0.0.6...v0.1.0) (2019-06-08)
