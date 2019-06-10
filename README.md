@@ -57,7 +57,7 @@ import { pipeValidators, rules } from '@codeparticle/formal';
 const { isString, minLength } = rules;
 
 // ...
-const isLongString = pipeValidators(isString, minLength(50));
+const isLongString = pipeValidators([isString, minLength(50)]);
 
 values
   .filter((val) => isLongString(val).isSuccess)
@@ -77,7 +77,7 @@ const testObjects = [
   { required: 'wrong' },
 ];
 
-const check = pipeValidators(isObject, getProp('required'));
+const check = pipeValidators([isObject, getProp('required')]);
 
 for (const test of testObjects) {
   expect(check(test).isSuccess).toBe(true); // passes
@@ -92,13 +92,20 @@ Formal has a small set of useful checks built in to validate simple data.
 
 ```ts
 import {
-  // Basic checks that take no arguments when used in Validator.of
+  // Basic validations that take no arguments when used in Validator.of //
   isString,
   isNumber,
   isObject,
   isArray,
+  isNonEmptyString,
   isNonEmptyObject,
   isNonEmptyArray,
+  isValidEmail, // Only validates format, not ownership.
+
+  // Validations that take arguments before being supplied to Validator or pipeValidators() //
+
+  // Check that a value matches a given regex. matchesRegex(/[A-Z]) || matchesRegex(RegExp('[A-Z]'))
+  matchesRegex,
   // Check that a string is x-characters long. Takes a value for the minimum. `minLength(10)`
   minLength,
   // Check that a string is no more than x-characters long. Takes a value for the maximum. `maxLength(50)`
@@ -139,15 +146,17 @@ const withNewMessageFn = withMessage(
   (badValue) => `${badValue} is invalid for this field.`
 );
 
-const adminFormFieldCheck = withAdminFormErrorMessage(rules.isString);
+const adminFormFieldCheck = withAdminFormErrorMessage(rules.isNonEmptyString);
 
-const userFormFieldCheck = withUserFormErrorMessage(rules.isString);
+const userFormFieldCheck = withUserFormErrorMessage(rules.isNonEmptyString);
 
 const internationalizedFieldCheck = withInternationalizedErrorMessage(
   rules.isString
 );
 
-const customMessageFunctionFieldCheck = withNewMessageFn(rules.isString);
+const customMessageFunctionFieldCheck = withNewMessageFn(
+  rules.isNonEmptyString
+);
 ```
 
 ## Creating your own validators
@@ -174,7 +183,7 @@ that allows for a transformation of the value _before_ it's handed off to the ne
 import { createRule } from '../rule';
 import { hasProp } from './has-prop';
 
-// below is the actual source code of the built-in getProp function
+// below is the actual source code of the built-in getProp function.
 export const getProp = (property) =>
   createRule({
     condition: (obj) => hasProp(property).check(obj).isSuccess,
