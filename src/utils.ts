@@ -65,10 +65,51 @@ const checkIsValidationM = (validator: ValidationM): void => {
   }
 };
 
+/**
+ * Function that takes an object with field names and rules, then applies those rules to the fields
+ * of another object with the same field names. Great for validation of entire objects at once, like
+ * forms or API responses.
+ */
+
+const validateObject = (fieldRules: Record<string, ValidationRuleset>) => (
+  values: object
+) => {
+  const errors = Object.keys(fieldRules).reduce((errs, fieldName) => {
+    try {
+      if (!(fieldName in values)) {
+        throw new Error(
+          `Field ${fieldName} is not in the object being validated.`
+        );
+      }
+      const applyFieldChecks: ValidationCheck = pipeValidators(
+        fieldRules[fieldName]
+      );
+      const checkResults: ValidationM = applyFieldChecks(values[fieldName]);
+
+      if (!checkResults.isSuccess) {
+        errors[fieldName] = checkResults.value;
+      }
+    } catch (e) {
+      // tslint:disable-next-line no-console
+      console.error(e.message);
+      // tslint:disable-next-line no-console
+      console.trace(e);
+    }
+
+    return errs;
+  }, {});
+
+  return {
+    values,
+    errors,
+  };
+};
+
 export {
   id,
   checkIsValidationM,
   pipeValidators,
   returnConstant,
   ValidationError,
+  validateObject,
 };
