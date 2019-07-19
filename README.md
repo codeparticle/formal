@@ -48,6 +48,44 @@ invalidResult.then({
 });
 ```
 
+### validateObject
+
+For validating forms or large API responses, formal exposes a `validateObject` utility. Here's an example
+of a form with a required name and email field.
+
+```ts
+import { rules, validateObject } from '@codeparticle/formal';
+
+const { isNonEmptyString, isValidEmail } = rules;
+
+const validateForm = validateObject({
+  name: [isNonEmptyString],
+  email: [isNonEmptyString, isValidEmail],
+});
+
+const formValues = {
+  name: 'hello',
+  email: '',
+};
+
+validateForm(formValues);
+```
+
+calling this will return a schema like this:
+
+```ts
+ {
+    hasErrors: true,
+    errors: {
+      email: ['Value must not be empty.', 'Must be a valid email']
+    },
+    values: {
+      name: 'hello',
+      email: ''
+    }
+ }
+```
+
 formal is flexible to your style, and exposes a `pipeValidators` function for writing validations in a more functional way. It condenses multiple checks into a function that encloses a value into a `Success` or `Fail` container.
 
 Once run, these validation containers are supplied with an `isSuccess` property for use in filters,with the ability to reach for the internally held `value`. While not recommended for control flow, it's useful in cases where you're running validation over a long list of items, as well as in writing test cases.
@@ -172,7 +210,7 @@ import { createRule } from '@codeparticle/formal';
 export const containsMatchingString = (match) =>
   createRule({
     condition: (str) => str.includes(match),
-    message: (failedStr) => `Value ${failedStr} does not include today's date.`,
+    message: (failedStr) => `Value ${failedStr} does not include today's date`,
   });
 ```
 
