@@ -72,28 +72,21 @@ const checkIsValidationM = (validator: ValidationM): void => {
  */
 
 const validateObject = (fieldRules: Record<string, ValidationRuleset>) => (
-  values: object
+  values: Record<string, any>
 ) => {
   const errors = Object.keys(fieldRules).reduce((errs, fieldName) => {
-    try {
-      if (!(fieldName in values)) {
-        throw new Error(
-          `Field ${fieldName} is not in the object being validated.`
-        );
-      }
-      const applyFieldChecks: ValidationCheck = pipeValidators(
-        fieldRules[fieldName]
+    if (!(fieldName in values)) {
+      throw new Error(
+        `Field ${fieldName} is not in the object being validated`
       );
-      const checkResults: ValidationM = applyFieldChecks(values[fieldName]);
+    }
+    const applyFieldChecks: ValidationCheck = pipeValidators(
+      fieldRules[fieldName]
+    );
+    const checkResults: ValidationM = applyFieldChecks(values[fieldName]);
 
-      if (!checkResults.isSuccess) {
-        errors[fieldName] = checkResults.value;
-      }
-    } catch (e) {
-      // tslint:disable-next-line no-console
-      console.error(e.message);
-      // tslint:disable-next-line no-console
-      console.trace(e);
+    if (!checkResults.isSuccess) {
+      errs[fieldName] = checkResults.value;
     }
 
     return errs;
@@ -101,6 +94,7 @@ const validateObject = (fieldRules: Record<string, ValidationRuleset>) => (
 
   return {
     values,
+    hasErrors: Object.keys(errors).length > 0,
     errors,
   };
 };

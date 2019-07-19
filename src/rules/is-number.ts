@@ -10,5 +10,5 @@ import { createRule } from '../rule';
 export const isNumber = createRule({
   condition: (maybeNum) =>
     typeof maybeNum === 'number' && !Number.isNaN(maybeNum),
-  message: (notNum) => `Value ${notNum} is not a number.`,
+  message: (notNum) => `Value ${notNum} is not a number`,
 });

@@ -10,6 +10,6 @@ export const isNonEmptyString = createRule({
     typeof maybeStr === 'string' && Boolean(maybeStr.length),
   message: (failed) =>
     typeof failed === 'string'
-      ? `Value ${failed} is not a string`
-      : 'String must not be empty',
+      ? 'String must not be empty'
+      : `Value${failed ? ` ${failed}` : ''} is not a string`,
 });

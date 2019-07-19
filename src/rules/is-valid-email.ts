@@ -12,5 +12,5 @@ import { createRule } from '../rule';
 export const isValidEmail = createRule({
   // credit to https://tylermcginnis.com/validate-email-address-javascript/ for this regex
   condition: (str) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(str),
-  message: (email) => `${email} is not a valid email address`,
+  message: `Must be a valid email address`,
 });
