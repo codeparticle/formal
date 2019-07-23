@@ -4,8 +4,15 @@
 
 import { test } from 'shelljs';
 import { createRule, withMessage } from '../rule';
-import { getProp, isNumber, isObject, isString } from '../rules';
-import { id } from '../utils';
+import {
+  getProp,
+  isNonEmptyString,
+  isNumber,
+  isObject,
+  isString,
+  isValidEmail,
+} from '../rules';
+import { id, validateObject } from '../utils';
 import { Validator } from '../validation';
 
 describe('Validation', () => {
@@ -63,10 +70,10 @@ describe('Validation', () => {
     ]);
 
     expect(failedString.then(testOpts)).toMatchObject([
-      'Value 2 is not a string.',
+      'Value 2 is not a string',
     ]);
     expect(failedNumber.then(testOpts)).toMatchObject([
-      'Value wow is not a number.',
+      'Value wow is not a number',
     ]);
   });
 });
@@ -92,5 +99,50 @@ describe('Rule', () => {
     expect(overwriteFn(newRule).check(2).value[0]).toBe(
       "Man, that's a crooked 2"
     );
+  });
+});
+
+describe('validateObject', () => {
+  it('can validate over an object, returning the original with an attached error object containing messages', () => {
+    const validate = validateObject({
+      // required fields
+      firstName: [isNonEmptyString],
+      lastName: [isNonEmptyString],
+      email: [isNonEmptyString, isValidEmail],
+      // non-required fields
+      city: [isString],
+    });
+
+    const testFormFields = {
+      empty: {},
+      bad: {
+        firstName: '',
+        lastName: 5,
+        email: '',
+        city: 5,
+      },
+      good: {
+        firstName: 'captain',
+        lastName: 'wow',
+        email: 'savesday@everyday.net',
+        city: '',
+      },
+    };
+    const invalid = validate(testFormFields.bad);
+    const valid = validate(testFormFields.good);
+
+    expect(invalid.hasErrors).toBe(true);
+    expect(valid.hasErrors).toBe(false);
+
+    expect(invalid.errors).toMatchObject({
+      firstName: ['String must not be empty'],
+      lastName: ['Value 5 is not a string'],
+      email: ['String must not be empty', 'Must be a valid email address'],
+      city: ['Value 5 is not a string'],
+    });
+
+    expect(() => {
+      validate(testFormFields.empty);
+    }).toThrow();
   });
 });
