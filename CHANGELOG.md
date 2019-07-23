@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.3.0"></a>
+
+# [0.3.0](https://github.com/codeparticle/formal/compare/v0.2.1...v0.3.0) (2019-07-23)
+
+### Bug Fixes
+
+- **rules:** minor bugfixes, message normalization across rules. ([5b332ef](https://github.com/codeparticle/formal/commit/5b332ef))
+
+### Features
+
+- **docs:** update the docs to include an example of validateObject ([7056a05](https://github.com/codeparticle/formal/commit/7056a05))
+- **validateObject:** added validateObject util. ([e9b413f](https://github.com/codeparticle/formal/commit/e9b413f))
+
 <a name="0.2.1"></a>
 
 ## [0.2.1](https://github.com/codeparticle/formal/compare/v0.2.0...v0.2.1) (2019-06-10)
