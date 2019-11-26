@@ -76,7 +76,7 @@
   "dependencies": {},
   "devDependencies": {
     "@commitlint/cli": "8.2.0",
-    "@commitlint/config-conventional": "8.1.0",
+    "@commitlint/config-conventional": "8.2.0",
     "@types/jest": "24.0.18",
     "@types/node": "12.7.*",
     "@types/prettier": "1.15.2",
