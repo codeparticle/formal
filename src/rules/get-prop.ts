@@ -6,13 +6,34 @@
  */
 
 import { createRule } from '../rule';
-import { hasProp } from './has-prop';
 
-export const getProp = (property) =>
-  createRule({
-    condition: (obj) => hasProp(property).check(obj).isSuccess,
-    message: `Property '${property}' does not exist`,
-    // transform the object to the value of the successfully found property
-    // before handing off to the next check / function.
-    transform: (obj) => obj[property],
+export const getProp = (...properties: string[]) => {
+  let prop = '';
+  let currentObjectPath = {};
+
+  return createRule({
+    condition: (obj) => {
+      currentObjectPath = obj;
+
+      for (const property of properties) {
+        if (currentObjectPath.hasOwnProperty(property)) {
+          prop += `.${property}`;
+          currentObjectPath = currentObjectPath[property];
+        } else {
+          return false;
+        }
+      }
+
+      return true;
+    },
+    message: (obj) => {
+      const path = properties.join('.');
+
+      return `Object does not include property ${path.slice(
+        prop.length - 1
+      )} at path .${path}`;
+    },
+
+    transform: (obj) => properties.reduce((acc, key) => acc[key], obj),
   });
+};
