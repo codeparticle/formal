@@ -78,7 +78,7 @@
     "@commitlint/cli": "8.2.0",
     "@commitlint/config-conventional": "8.1.0",
     "@types/jest": "24.0.18",
-    "@types/node": "12.7.*",
+    "@types/node": "13.5.*",
     "@types/prettier": "1.15.2",
     "@types/webpack-config-utils": "2.3.0",
     "brotli-size": "4.0.0",
