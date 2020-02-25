@@ -7,6 +7,11 @@ const config = {
   testMatch: [
     `<rootDir>/test/**/*.ts?(x)`,
   ],
+  globals: {
+    'ts-jest': {
+      diagnostics: false,
+    },
+  },
   testPathIgnorePatterns: [`dist`],
   coverageThreshold: {
     global: {
