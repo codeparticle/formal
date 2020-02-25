@@ -1,33 +1,16 @@
-import { getProp } from './get-prop';
-import { greaterThan } from './greater-than';
-import { hasProp } from './has-prop';
-import { isArray } from './is-array';
-import { isNonEmptyArray } from './is-non-empty-array';
-import { isNonEmptyObject } from './is-non-empty-object';
-import { isNonEmptyString } from './is-non-empty-string';
-import { isNumber } from './is-number';
-import { isObject } from './is-object';
-import { isString } from './is-string';
-import { isValidEmail } from './is-valid-email';
-import { lessThan } from './less-than';
-import { matchesRegex } from './matches-regex';
-import { maxLength } from './max-length';
-import { minLength } from './min-length';
-
-export {
-  getProp,
-  greaterThan,
-  hasProp,
-  isArray,
-  isNonEmptyArray,
-  isNonEmptyObject,
-  isNonEmptyString,
-  isNumber,
-  isObject,
-  isString,
-  lessThan,
-  maxLength,
-  minLength,
-  matchesRegex,
-  isValidEmail,
-};
+export { getProp } from './get-prop'
+export { greaterThan } from './greater-than'
+export { hasProp } from './has-prop'
+export { isArray } from './is-array'
+export { isNonEmptyArray } from './is-non-empty-array'
+export { isNonEmptyObject } from './is-non-empty-object'
+export { isNonEmptyString } from './is-non-empty-string'
+export { isNumber } from './is-number'
+export { isObject } from './is-object'
+export { isString } from './is-string'
+export { isValidEmail } from './is-valid-email'
+export { lessThan } from './less-than'
+export { matchesRegex } from './matches-regex'
+export { maxLength } from './max-length'
+export { minLength } from './min-length'
+export { isEqualTo } from './is-equal-to'

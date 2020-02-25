@@ -3,7 +3,7 @@
  * @author Nick Krause
  */
 
-import { createRule } from '../rule';
+import { createRule } from '../rule'
 
 /**
  * Check to see that a value matches a given regex.
@@ -14,4 +14,4 @@ export const matchesRegex = (regex: RegExp) =>
   createRule({
     condition: (maybeStr: string) => regex.test(maybeStr),
     message: (val) => `Value ${val} does not match regular expression ${regex}`,
-  });
+  })

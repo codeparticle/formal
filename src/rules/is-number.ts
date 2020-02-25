@@ -5,10 +5,10 @@
  * @license MIT
  */
 
-import { createRule } from '../rule';
+import { createRule } from '../rule'
 
 export const isNumber = createRule({
   condition: (maybeNum) =>
-    typeof maybeNum === 'number' && !Number.isNaN(maybeNum),
+    typeof maybeNum === `number` && !Number.isNaN(maybeNum),
   message: (notNum) => `Value ${notNum} is not a number`,
-});
+})

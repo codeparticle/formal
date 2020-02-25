@@ -3,13 +3,9 @@
  * @author Nick Krause
  */
 
-import { createRule } from '../rule';
+import { createRule } from '../rule'
 
 export const isNonEmptyString = createRule({
-  condition: (maybeStr) =>
-    typeof maybeStr === 'string' && Boolean(maybeStr.length),
-  message: (failed) =>
-    typeof failed === 'string'
-      ? 'String must not be empty'
-      : `Value${failed ? ` ${failed}` : ''} is not a string`,
-});
+  condition: (maybeStr) => typeof maybeStr === `string` && Boolean(maybeStr.length),
+  message: `Value must be a non-empty string`,
+})

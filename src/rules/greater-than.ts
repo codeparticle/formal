@@ -5,10 +5,10 @@
  * @license MIT
  */
 
-import { createRule } from '../rule';
+import { createRule } from '../rule'
 
 export const greaterThan = (min) =>
   createRule({
     condition: (num) => num > min,
     message: (num) => `${num} must be greater than ${min}`,
-  });
+  })

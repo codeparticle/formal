@@ -3,12 +3,12 @@
  * @author Nick Krause
  * @license MIT
  */
-import { createRule } from '../rule';
+import { createRule } from '../rule'
 
 export const isNonEmptyArray = createRule({
   condition: (arr) => Array.isArray(arr) && Boolean(arr.length),
   message: (val) =>
     Array.isArray(val)
-      ? 'Array must not be empty'
+      ? `Array must not be empty`
       : `No array values found in ${val}`,
-});
+})

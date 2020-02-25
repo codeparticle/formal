@@ -3,7 +3,7 @@
  * @author Nick Krause
  */
 
-import { createRule } from '../rule';
+import { createRule } from '../rule'
 
 /**
  * Check to ensure that an email address is in a valid format.
@@ -13,4 +13,4 @@ export const isValidEmail = createRule({
   // credit to https://tylermcginnis.com/validate-email-address-javascript/ for this regex
   condition: (str) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(str),
   message: `Must be a valid email address`,
-});
+})

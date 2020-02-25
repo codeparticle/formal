@@ -4,7 +4,7 @@
  * @author Nick Krause
  * @license MIT
  */
-import { ValidationCheck, ValidationM, ValidationRuleset } from './types'
+import { ValidationCheck, ValidationM, ValidationRuleset } from '../types'
 
 class ValidationError extends Error {}
 
@@ -15,7 +15,7 @@ class ValidationError extends Error {}
  */
 const id = (x: any) => x
 
-const pipeValidators: (fns: ValidationRuleset) => ValidationCheck = (fns) => (
+const pipeValidators: (fns: ValidationRuleset, values?: any) => ValidationCheck = (fns, values) => (
   value: any,
 ) => {
   const [first, ...rest] = fns
@@ -24,8 +24,9 @@ const pipeValidators: (fns: ValidationRuleset) => ValidationCheck = (fns) => (
   // we chain through the rest of the functions
   // in order to combine them all into a single check.
   return rest.reduce(
-    (prevM, nextM) => prevM.chain(nextM.check),
-    first.check(value),
+    // eslint-disable-next-line @typescript-eslint/unbound-method
+    (prevM, nextM) => prevM.chain(typeof nextM === `function` ? nextM(values).check : nextM.check),
+    (typeof first === `function` ? first(values) : first).check(value),
   )
 }
 
@@ -46,7 +47,7 @@ function returnConstant<T>(x: T): () => T {
 const validationErrorMessage = (fn: (v: any) => any): string => {
   return `
 Chaining validation only works if every function has a .chain() method that takes a Success or Fail object.
-Check the type of ${fn.constructor.name} - was it written using createRule?.
+Check the type of ${fn.constructor.name} - was it written using createRule?
 `
 }
 
@@ -83,8 +84,9 @@ const validateObject = (fieldRules: Record<string, ValidationRuleset>) => (
 
     const applyFieldChecks: ValidationCheck = pipeValidators(
       fieldRules[fieldName],
+      values,
     )
-    const checkResults: ValidationM = applyFieldChecks(values[fieldName])
+    const checkResults: ValidationM = applyFieldChecks(values[fieldName], values)
 
     if (!checkResults.isSuccess) {
       errs[fieldName] = checkResults.value

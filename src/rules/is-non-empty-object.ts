@@ -3,7 +3,7 @@
  * @author Nick Krause
  * @license MIT
  */
-import { createRule } from '../rule';
+import { createRule } from '../rule'
 
 export const isNonEmptyObject = createRule({
   // Reflect.ownKeys is used because
@@ -12,9 +12,9 @@ export const isNonEmptyObject = createRule({
   // like 'Symbol' or properties defined by Object.defineProperty where
   // 'enumerable' is set to false.
   condition: (obj) =>
-    typeof obj === 'object' && Boolean(Reflect.ownKeys(obj).length),
+    typeof obj === `object` && Boolean(Reflect.ownKeys(obj).length),
   message: (obj) =>
-    typeof obj === 'object'
+    typeof obj === `object`
       ? `Object must not be empty`
       : `Value ${obj} is not an object`,
-});
+})

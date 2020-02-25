@@ -2,20 +2,20 @@
  * @file Rule class for use with createRule and withMessage
  * @author Nick Krause
  */
-import { Fail } from './fail';
-import { Success } from './success';
+import { Fail } from './fail'
+import { Success } from './success'
 import {
   CustomValidatorOptions,
   ValidationCheck,
   ValidationRule,
-} from './types';
+} from './types'
 
 class Rule implements ValidationRule {
-  message: string | ((v: any) => string);
-  opts: CustomValidatorOptions;
+  message: string | ((v: any) => string)
+  opts: CustomValidatorOptions
 
   constructor(opts: CustomValidatorOptions) {
-    this.opts = opts;
+    this.opts = opts
   }
 
   check: ValidationCheck = (value) => {
@@ -24,24 +24,24 @@ class Rule implements ValidationRule {
       // called transform that allows us to change the value
       // before it is passed onto the next check.
       if (this.opts.transform) {
-        return Success.of(this.opts.transform(value));
+        return Success.of(this.opts.transform(value))
       }
 
-      return Success.of(value);
+      return Success.of(value)
     } else {
-      return typeof this.opts.message === 'function'
+      return typeof this.opts.message === `function`
         ? Fail.of(this.opts.message(value))
-        : Fail.of(this.opts.message);
+        : Fail.of(this.opts.message)
     }
-  };
+  }
 }
 
 /**
  * Exposed interface to create a rule
  */
 const createRule: (opts: CustomValidatorOptions) => ValidationRule = (opts) => {
-  return new Rule(opts);
-};
+  return new Rule(opts)
+}
 
 /**
  * Method to overwrite the message of a rule.
@@ -50,13 +50,13 @@ const createRule: (opts: CustomValidatorOptions) => ValidationRule = (opts) => {
  * @param message
  */
 const withMessage = (message: string | ((v?: any) => string)) => (
-  rule: ValidationRule
+  rule: ValidationRule,
 ) => {
-  const copiedRule = { ...rule };
+  const copiedRule = { ...rule }
 
-  copiedRule.opts.message = message;
+  copiedRule.opts.message = message
 
-  return copiedRule;
-};
+  return copiedRule
+}
 
-export { Rule, createRule, withMessage };
+export { Rule, createRule, withMessage }
