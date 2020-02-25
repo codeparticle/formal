@@ -4,6 +4,7 @@ module.exports = {
         'ecmaVersion': 2018,
         'sourceType': 'module',
         'project': ['./tsconfig.json', './tsconfig.dev.json'],
+        'extraFileExtensions': ['.md']
     },
     'plugins': [
         '@typescript-eslint'
