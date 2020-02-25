@@ -1,7 +1,8 @@
 /**
  * @file Unit tests for @codeparticle/formal
  */
-
+// eslint-disable-next-line
+// @ts-disable-file
 import { id, validateObject } from '../src/internal/utils'
 import { createRule, withMessage } from '../src/rule'
 import {
