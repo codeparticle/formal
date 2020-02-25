@@ -1,0 +1,15 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "allowJs": true,
+        "checkJs": true
+    },
+    "include": [
+        "test",
+        "./jest.config.js",
+        "scripts",
+    ],
+    "exclude": [
+        "src"
+    ]
+}

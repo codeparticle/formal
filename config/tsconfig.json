@@ -11,6 +11,6 @@
     "importHelpers": false
   },
   "include": [
-    "."
+    ".", "../jest.config.js"
   ]
 }

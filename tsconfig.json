@@ -5,11 +5,12 @@
     "target": "es5",
     "lib": [
       "dom",
-      "es2018"
+      "esnext"
     ],
     "strict": false,
     "noImplicitAny": false,
     "downlevelIteration": true,
+    "allowSyntheticDefaultImports": true,
     "strictNullChecks": false,
     "esModuleInterop": true,
     "jsx": "react",
@@ -19,17 +20,10 @@
     "declarationMap": true,
     "declarationDir": "dist/types",
     "outDir": "dist/esm5",
-    "resolveJsonModule": true,     
-    "plugins": [
-      {
-        "name": "typescript-tslint-plugin",
-        "alwaysShowRuleFailuresAsWarnings": false
-      }
-    ]
+    "resolveJsonModule": true,
   },
   "include": [
-    "./src",
-    "./src/types"
+    "src"
   ],
   "compileOnSave": false
 }
