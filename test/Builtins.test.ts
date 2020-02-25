@@ -1,8 +1,7 @@
 /**
  * @file Tests for built-in validations.
  */
-// eslint-disable-next-line
-// @ts-disable-file
+
 import { pipeValidators } from '../src/internal/utils'
 import {
   getProp,
