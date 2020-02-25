@@ -140,7 +140,15 @@ import {
   isNonEmptyArray,
   isValidEmail, // Only validates format, not ownership.
 
+  /**
+   * checks if something is equal to another value.
+   * if you're using this in validateObject to check that two fields match,
+   * use it as [values => isEqualTo(values['otherFormField'])]
+   */
+  isEqualTo,
+
   // Validations that take arguments before being supplied to Validator or pipeValidators() //
+
 
   // Check that a value matches a given regex. matchesRegex(/[A-Z]) || matchesRegex(RegExp('[A-Z]'))
   matchesRegex,
@@ -152,9 +160,9 @@ import {
   lessThan,
   // Check that a number is less than a certain amount. Takes a value for the maximum. `greaterThan(50)`
   greaterThan,
-  // check that an object has a certain property. Takes a value for the key. `hasProp('fieldName')`
+  // check that an object has a certain property. Takes a drilldown path supplied as strings. `hasProp('fieldName', 'subfield')`
   hasProp,
-  // check that an object has a property, then return a Success object with its value. `getProp('fieldName')`
+  // check that an object has a property at the given drilldown path, then return a Success object with its value. `getProp('fieldName', 'subfield')`
   getProp
 } from '@codeparticle/formal';
 ...
