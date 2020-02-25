@@ -1,6 +1,25 @@
-# Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## [0.4.0](https://github.com/codeparticle/formal/compare/v0.3.0...v0.4.0) (2020-02-25)
+
+
+### Bug Fixes
+
+* **linter:** add markdown file ext to parser opts ([359a768](https://github.com/codeparticle/formal/commit/359a768))
+* **linter:** don't try to lint non-js ([f420c46](https://github.com/codeparticle/formal/commit/f420c46))
+* **tests:** rm dupe utils file, fix tests ([963a11c](https://github.com/codeparticle/formal/commit/963a11c))
+* **tests:** temp disable type checking for tests ([2625d95](https://github.com/codeparticle/formal/commit/2625d95))
+* **tests:** temp disable type checks in tests as they are incorrect ([fe5ef34](https://github.com/codeparticle/formal/commit/fe5ef34))
+
+
+### Features
+
+* **build:** move tests and remove them from builds ([7972fa1](https://github.com/codeparticle/formal/commit/7972fa1))
+* **docs:** update docs ([d3c192b](https://github.com/codeparticle/formal/commit/d3c192b))
+* **rules:** add is-equal-to rule ([d66b82c](https://github.com/codeparticle/formal/commit/d66b82c))
+* **rules:** make getProp and hasProp variadic. ([20c0255](https://github.com/codeparticle/formal/commit/20c0255))
 
 <a name="0.3.0"></a>
 
