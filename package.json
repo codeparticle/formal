@@ -60,7 +60,7 @@
     }
   },
   "lint-staged": {
-    "**/*.{ts,tsx,js,jsx,css,scss,sass,less,md}": [
+    "**/*.{ts,tsx,js,jsx}": [
       "npm run style",
       "git add"
     ]
