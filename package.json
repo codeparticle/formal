@@ -27,22 +27,22 @@
   },
   "scripts": {
     "cleanup": "shx rm -rf dist",
-    "prebuild": "npm run cleanup && npm run verify",
+    "prebuild": "yarn cleanup && yarn verify",
     "build": "tsc && tsc --target es2015 --outDir dist/esm2015 && rollup -c config/rollup.config.js && rollup -c config/rollup.config.js --environment NODE_ENV:production",
-    "postbuild": "node scripts/copy && npm run size",
+    "postbuild": "node scripts/copy && yarn size",
     "docs": "typedoc -p . --theme minimal --target 'es6' --excludeNotExported --excludePrivate --ignoreCompilerErrors --exclude \"**/src/**/__tests__/*.*\" --out docs src/",
     "test": "jest -c ./jest.config.js",
     "test:watch": "npm t -- --watch",
     "test:coverage": "npm t -- --coverage",
     "test:ci": "npm t -- --ci",
     "validate-js": "tsc -p ./config && tsc -p ./scripts",
-    "verify": "npm run validate-js && npm run style && npm run test:ci",
+    "verify": "yarn validate-js && yarn style && yarn test:ci",
     "commit": "git-cz",
     "lint": "eslint 'src/**/*.ts' 'test/**/*.ts'",
-    "style": "npm run lint -- --fix",
-    "prerelease": "npm run build",
+    "style": "yarn lint -- --fix",
+    "prerelease": "yarn build",
     "release": "standard-version",
-    "postrelease": "node scripts/copy && node scripts/build && npm run release:github && npm run release:npm",
+    "postrelease": "node scripts/copy && node scripts/build && yarn release:github && yarn release:npm",
     "release:github": "git push --no-verify --follow-tags origin master",
     "release:npm": "npm publish dist --access public",
     "release:preflight": "npm pack ./dist --dry-run",
@@ -56,18 +56,18 @@
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
-      "pre-push": "npm run style && npm test -- --bail --onlyChanged"
+      "pre-push": "yarn style && npm test -- --bail --onlyChanged"
     }
   },
   "lint-staged": {
     "**/*.{ts,tsx,js,jsx}": [
-      "npm run style",
+      "yarn style",
       "git add"
     ]
   },
   "peerDependencies": {},
   "dependencies": {
-    "case": "1.6.2"
+    "case": "^1.6.2"
   },
   "devDependencies": {
     "@commitlint/cli": "8.2.0",

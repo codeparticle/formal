@@ -72,35 +72,39 @@ const checkIsValidationM = (validator: ValidationM): void => {
  * forms or API responses.
  */
 
-const validateObject = (fieldRules: Record<string, ValidationRuleset>) => (
-  values: Record<string, any>,
-) => {
-  const errors = Object.keys(fieldRules).reduce((errs, fieldName) => {
-    if (!(fieldName in values)) {
-      throw new Error(
-        `Field ${fieldName} is not in the object being validated`,
+const validateObject =
+  (fieldRules: Record<string, ValidationRuleset>) =>
+  <Vals extends Record<string, any>>(values: Vals): {
+  values: Vals
+  hasErrors: boolean
+  errors: Record<keyof Vals, string[]> | {}
+} => {
+    const errors = Object.keys(fieldRules).reduce((errs, fieldName) => {
+      if (!(fieldName in values)) {
+        throw new Error(
+          `Field ${fieldName} is not in the object being validated`,
+        )
+      }
+
+      const applyFieldChecks: ValidationCheck = pipeValidators(
+        fieldRules[fieldName],
+        values,
       )
-    }
+      const checkResults: ValidationM = applyFieldChecks(values[fieldName], values)
 
-    const applyFieldChecks: ValidationCheck = pipeValidators(
-      fieldRules[fieldName],
+      if (!checkResults.isSuccess) {
+        errs[fieldName] = checkResults.value
+      }
+
+      return errs
+    }, {})
+
+    return {
       values,
-    )
-    const checkResults: ValidationM = applyFieldChecks(values[fieldName], values)
-
-    if (!checkResults.isSuccess) {
-      errs[fieldName] = checkResults.value
+      hasErrors: Object.keys(errors).length > 0,
+      errors,
     }
-
-    return errs
-  }, {})
-
-  return {
-    values,
-    hasErrors: Object.keys(errors).length > 0,
-    errors,
   }
-}
 
 export {
   id,
