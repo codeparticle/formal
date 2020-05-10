@@ -73,8 +73,8 @@ const checkIsValidationM = (validator: ValidationM): void => {
  */
 
 const validateObject =
-  (fieldRules: Record<string, ValidationRuleset>) =>
-  <Vals extends Record<string, any>>(values: Vals): {
+  <Rules extends Record<string, ValidationRuleset>>(fieldRules: Rules) =>
+  <Vals extends Record<keyof Rules, any>>(values: Vals): {
   values: Vals
   hasErrors: boolean
   errors: Record<keyof Vals, string[]> | {}
