@@ -77,7 +77,7 @@ const validateObject =
   <Vals extends Record<keyof Rules, any>>(values: Vals): {
   values: Vals
   hasErrors: boolean
-  errors: Record<keyof Vals, string[]> | {}
+  errors: Partial<Record<keyof Rules, string[]>>
 } => {
     const errors = Object.keys(fieldRules).reduce((errs, fieldName) => {
       if (!(fieldName in values)) {
