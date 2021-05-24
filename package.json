@@ -67,7 +67,7 @@
   },
   "peerDependencies": {},
   "dependencies": {
-    "case": "^1.6.2"
+    "case": "^1.6.3"
   },
   "devDependencies": {
     "@commitlint/cli": "8.2.0",
