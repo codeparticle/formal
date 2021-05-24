@@ -70,7 +70,7 @@
     "case": "^1.6.3"
   },
   "devDependencies": {
-    "@commitlint/cli": "8.2.0",
+    "@commitlint/cli": "12.1.4",
     "@commitlint/config-conventional": "12.1.4",
     "@rollup/plugin-commonjs": "^19.0.0",
     "@rollup/plugin-json": "^4.1.0",
