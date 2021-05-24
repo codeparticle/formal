@@ -7,10 +7,12 @@ class Success implements Success {
   }
 
   isSuccess = true
+  errors = []
   value: any = null
 
   constructor(value: any) {
     this.value = value
+    this.errors = []
   }
 
   map(fn: (v: any) => any) {
