@@ -27,9 +27,7 @@ class Success implements Success {
 
       return result
     } catch (e) {
-      // tslint:disable-next-line
       console.error(e.message)
-      // tslint:disable-next-line
       console.error(e.stack)
     }
   }

@@ -49,9 +49,7 @@ class Fail implements Fail {
         this.errors.concat(result?.errors ?? []),
       )
     } catch (e) {
-      // tslint:disable-next-line
       console.error(e.message)
-      // tslint:disable-next-line
       console.error(e.stack)
     }
   }
