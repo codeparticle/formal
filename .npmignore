@@ -4,7 +4,6 @@
 # tools configs
 **/tsconfig.json
 tsconfig.*.json
-tslint.json
 **/webpack.config.js
 **/jest.config.js
 **/prettier.config.js

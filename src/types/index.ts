@@ -13,8 +13,8 @@ export interface ValidationRule {
 }
 
 export interface ValidationActions {
-  onSuccess: (v: any) => any
-  onFail: (v: string[]) => any
+  onSuccess: (val: any) => any
+  onFail: (errs: string[]) => any
 }
 
 export interface CustomValidatorOptions {
@@ -33,14 +33,17 @@ export type ValidationM = Success | Fail
 
 export interface Fail {
   value: any
+  errors: string[]
   isSuccess: boolean
   map(fn: (value: any) => any): Fail
-  chain(fn: (value: any) => ValidationM): Fail
+  chain(fn: (value: any, errors) => ValidationM): Fail
   fold(opts: ValidationActions): any
 }
 
 export interface Success {
   value: any
+  // ghost type - errors will never exist on a Success
+  errors: string[]
   isSuccess: boolean
   map(fn: (value: any) => any): Success
   chain(fn: (value: any) => ValidationM): ValidationM

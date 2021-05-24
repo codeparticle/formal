@@ -20,13 +20,16 @@ const pipeValidators: (fns: ValidationRuleset, values?: any) => ValidationCheck 
 ) => {
   const [first, ...rest] = fns
 
+  const firstCheck = (typeof first === `function` ? first(values) : first).check(value)
+
   // starting with the first function that returns a monad,
   // we chain through the rest of the functions
   // in order to combine them all into a single check.
   return rest.reduce(
-    // eslint-disable-next-line @typescript-eslint/unbound-method
-    (prevM, nextM) => prevM.chain(typeof nextM === `function` ? nextM(values).check : nextM.check),
-    (typeof first === `function` ? first(values) : first).check(value),
+    (prevM, nextM) =>
+      // eslint-disable-next-line @typescript-eslint/unbound-method
+      prevM.chain(typeof nextM === `function` ? nextM(values)[`check`] : nextM.check),
+    firstCheck,
   )
 }
 
@@ -93,7 +96,7 @@ const validateObject =
       const checkResults: ValidationM = applyFieldChecks(values[fieldName], values)
 
       if (!checkResults.isSuccess) {
-        errs[fieldName] = checkResults.value
+        errs[fieldName] = checkResults.errors
       }
 
       return errs

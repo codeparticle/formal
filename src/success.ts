@@ -7,10 +7,12 @@ class Success implements Success {
   }
 
   isSuccess = true
+  errors = []
   value: any = null
 
   constructor(value: any) {
     this.value = value
+    this.errors = []
   }
 
   map(fn: (v: any) => any) {
@@ -25,9 +27,7 @@ class Success implements Success {
 
       return result
     } catch (e) {
-      // tslint:disable-next-line
       console.error(e.message)
-      // tslint:disable-next-line
       console.error(e.stack)
     }
   }

@@ -30,8 +30,8 @@ class Rule implements ValidationRule {
       return Success.of(value)
     } else {
       return typeof this.opts.message === `function`
-        ? Fail.of(this.opts.message(value))
-        : Fail.of(this.opts.message)
+        ? Fail.of(value, [].concat(this.opts.message(value)))
+        : Fail.of(value, [].concat(this.opts.message))
     }
   }
 }
@@ -51,12 +51,6 @@ const createRule: (opts: CustomValidatorOptions) => ValidationRule = (opts) => {
  */
 const withMessage = (message: string | ((v?: any) => string)) => (
   rule: ValidationRule,
-) => {
-  const copiedRule = { ...rule }
-
-  copiedRule.opts.message = message
-
-  return copiedRule
-}
+) => new Rule({ ...rule.opts, message })
 
 export { Rule, createRule, withMessage }

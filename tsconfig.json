@@ -20,7 +20,7 @@
     "declarationMap": true,
     "declarationDir": "dist/types",
     "outDir": "dist/esm5",
-    "resolveJsonModule": true,
+    "resolveJsonModule": true
   },
   "include": [
     "src"

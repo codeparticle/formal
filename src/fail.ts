@@ -8,11 +8,12 @@ import { checkIsValidationM } from './internal/utils'
 import { ValidationActions, ValidationM } from './types'
 
 class Fail implements Fail {
-  static of(value: any) {
-    return new Fail(value)
+  static of(value: any, errors: string[] = []) {
+    return new Fail(value, errors)
   }
 
   value: any = null
+  errors: string[] = []
   isSuccess = false
 
   /**
@@ -20,42 +21,33 @@ class Fail implements Fail {
    * one, used when we fold out of this context.
    *
    */
-  constructor(value: any) {
-    this.value = [].concat(value)
+  constructor(value: any, errors: string[] = []) {
+    this.value = value
+    this.errors = errors
   }
 
   /**
-   * The map function for Fail ignores all effects and returns this as-is.
-   * It is a brick wall against doing any unnecessary work if we already know we don't have what we want.
+   * The map function for Fail preserves the value without mapping anything over it, and accumulates errors on the side.
    */
   map() {
-    return this
+    return new Fail(this.value, this.errors)
   }
 
   /**
    * The .chain() for Fail takes another Success or Fail, then combines the results.
    */
-  chain(validationM: (v: any) => ValidationM): ValidationM {
+  chain(validationM: (v: any, e?: string[]) => ValidationM): ValidationM {
     try {
-      const result = validationM(this.value)
+      const result = validationM(this.value, this.errors)
 
       checkIsValidationM(result)
 
-      // if we're looking at a Success, brick wall it
-      if (result.isSuccess) {
-        return this
-      }
-
-      // destructuring a set in case two checks return the same error.
-      return new Fail([
-        ...new Set(
-          [this.value, result.value].flat(),
-        ),
-      ])
+      return new Fail(
+        result.value,
+        this.errors.concat(result?.errors ?? []),
+      )
     } catch (e) {
-      // tslint:disable-next-line
       console.error(e.message)
-      // tslint:disable-next-line
       console.error(e.stack)
     }
   }
@@ -65,7 +57,7 @@ class Fail implements Fail {
    * with a function that operates on it.
    */
   fold({ onFail }: ValidationActions) {
-    return onFail(this.value)
+    return onFail(this.errors)
   }
 }
 

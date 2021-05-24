@@ -81,7 +81,7 @@ describe(`Rule`, () => {
   it(`allows for initialization through createRule`, () => {
     expect(customRule.check(3).isSuccess).toBe(false)
     expect(customRule.check(5).isSuccess).toBe(true)
-    expect(customRule.check(3).value[0]).toBe(`value must be greater than 3`)
+    expect(customRule.check(3).errors[0]).toBe(`value must be greater than 3`)
   })
 
   it(`allows for overwriting the message of an existing rule using withMessage`, () => {
@@ -90,24 +90,39 @@ describe(`Rule`, () => {
     const overwriteFn = withMessage((d) => `Man, that's a crooked ${d}`)
 
     expect(newRule.check(2).isSuccess).toBe(false)
-    expect(newRule.check(2).value[0]).toBe(`Whoa`)
-    expect(overwriteFn(newRule).check(2).value[0]).toBe(
+    expect(overwriteFn(newRule).check(2).errors[0]).toBe(
       `Man, that's a crooked 2`,
     )
+    expect(newRule.check(2).errors[0]).toBe(`Whoa`)
   })
 })
 
 describe(`validateObject`, () => {
   it(`can validate over an object, returning the original with an attached error object containing messages`, () => {
 
+    const hasExactlyTwoNameObjects = createRule({
+      condition: arr => arr.length === 2,
+      message: `Exactly two names must exist`,
+    })
+
+    const daveIsSpelledBackwardsSomewhere = createRule({
+      condition: arr => Boolean(arr.find(o => o.name === `evad`)),
+      message: `Dave is not spelled backwards somewhere`,
+    })
+
     const validate = validateObject({
       // required fields
       firstName: [isNonEmptyString],
       lastName: [isNonEmptyString],
-      email: [isNonEmptyString, isValidEmail],
-      confirmationEmail: [values => isEqualTo(values[`email`]), isNonEmptyString, isEqualTo(`savesday@everyday.net`)],
+      email: [isNonEmptyString, isValidEmail, values => isEqualTo((values[`confirmationEmail`]))],
+      confirmationEmail: [
+        values => isEqualTo(values[`email`]),
+        isNonEmptyString,
+        isValidEmail,
+      ],
       // non-required fields
       city: [isString],
+      names: [hasExactlyTwoNameObjects, daveIsSpelledBackwardsSomewhere],
     })
 
     const testFormFields = {
@@ -115,9 +130,14 @@ describe(`validateObject`, () => {
       bad: {
         firstName: ``,
         lastName: 5,
-        email: `notbad`,
+        email: `notbad@email.com`,
         confirmationEmail: `bad`,
         city: 5,
+        names: [
+          {
+            name: `what?`,
+          },
+        ],
       },
       good: {
         firstName: `captain`,
@@ -125,6 +145,11 @@ describe(`validateObject`, () => {
         email: `savesday@everyday.net`,
         confirmationEmail: `savesday@everyday.net`,
         city: ``,
+        names: [{
+          name: `dave`,
+        }, {
+          name: `evad`,
+        }],
       },
     }
 
@@ -137,13 +162,10 @@ describe(`validateObject`, () => {
     expect(invalid.errors).toMatchObject({
       firstName: [`Value must be a non-empty string`],
       lastName: [`Value must be a non-empty string`],
-      email: [`Must be a valid email address`],
-      confirmationEmail: [`Values must be equal`, `Value must be a non-empty string`],
+      email: [`Values must be equal`],
+      confirmationEmail: [`Values must be equal`, `Must be a valid email address`],
       city: [`Value is not a string`],
+      names: [`Exactly two names must exist`, `Dave is not spelled backwards somewhere`],
     })
-
-    expect(() => {
-      validate(testFormFields.empty)
-    }).toThrow()
   })
 })
