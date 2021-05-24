@@ -27,11 +27,10 @@ class Fail implements Fail {
   }
 
   /**
-   * The map function for Fail ignores all effects and returns this as-is.
-   * It is a brick wall against doing any unnecessary work if we already know we don't have what we want.
+   * The map function for Fail preserves the value without mapping anything over it, and accumulates errors on the side.
    */
-  map(fn) {
-    return new Fail(fn(this.value), this.errors)
+  map() {
+    return new Fail(this.value, this.errors)
   }
 
   /**
@@ -43,7 +42,6 @@ class Fail implements Fail {
 
       checkIsValidationM(result)
 
-      // destructuring a set in case two checks return the same error.
       return new Fail(
         result.value,
         this.errors.concat(result?.errors ?? []),

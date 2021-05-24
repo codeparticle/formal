@@ -115,7 +115,7 @@ const testObjects = [
   { required: 'wrong' },
 ];
 
-const check = pipeValidators([isObject, getProp('required')]);
+const check = pipeValidators([isObject, hasProp('required')]);
 
 for (const test of testObjects) {
   expect(check(test).isSuccess).toBe(true); // passes
