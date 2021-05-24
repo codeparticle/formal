@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.7](https://github.com/codeparticle/formal/compare/v0.4.2...v0.4.7) (2021-05-24)
+
+
+### Features
+
+* **deps:** update deps ([8382dc9](https://github.com/codeparticle/formal/commit/8382dc99570e3405b3cd0482d0de8f853098e523))
+
+
+### Bug Fixes
+
+* **errors:** fix errors accumulation ([724b424](https://github.com/codeparticle/formal/commit/724b4241ba9111080273e30e3638fb91c7363e3d))
+* **fail:** do not map transformations over values in Fail ([433f29d](https://github.com/codeparticle/formal/commit/433f29d4035f901bf229a8e452c893b86a0d28a0))
+* **rules:** update Rules with new interface, fix withMessage overwriting functions ([6ef04c6](https://github.com/codeparticle/formal/commit/6ef04c6d1772e486e7918a6cbb0dce1dd9c66ea4))
+
 ### [0.4.2](https://github.com/codeparticle/formal/compare/v0.4.1...v0.4.2) (2020-05-10)
 
 ## [0.4.0](https://github.com/codeparticle/formal/compare/v0.3.0...v0.4.0) (2020-02-25)
