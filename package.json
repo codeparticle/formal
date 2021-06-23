@@ -80,7 +80,7 @@
     "@types/node": "13.5.*",
     "@types/prettier": "1.15.2",
     "@types/webpack-config-utils": "2.3.0",
-    "@typescript-eslint/eslint-plugin": "2.21.0",
+    "@typescript-eslint/eslint-plugin": "2.34.0",
     "@typescript-eslint/parser": "2.21.0",
     "brotli-size": "4.0.0",
     "commitizen": "4.0.3",
