@@ -77,7 +77,7 @@
     "@rollup/plugin-node-resolve": "^13.0.0",
     "@rollup/plugin-replace": "^2.4.2",
     "@types/jest": "24.0.18",
-    "@types/node": "13.5.*",
+    "@types/node": "15.12.*",
     "@types/prettier": "1.15.2",
     "@types/webpack-config-utils": "2.3.0",
     "@typescript-eslint/eslint-plugin": "2.34.0",
