@@ -55,8 +55,7 @@
   },
   "lint-staged": {
     "**/*.{ts,tsx,js,jsx}": [
-      "yarn style",
-      "git add"
+      "yarn style"
     ]
   },
   "peerDependencies": {},
