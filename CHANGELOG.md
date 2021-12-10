@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.4](https://github.com/codeparticle/formal/compare/v1.0.3...v1.0.4) (2021-12-10)
+
+
+### Bug Fixes
+
+* **deps:** remove git add from lint-staged script ([d03e998](https://github.com/codeparticle/formal/commit/d03e998194f07799d5b5a5495b17f9f7b12dbb1b))
+* **rules:** fix object rules throwing when objects are null ([2b16deb](https://github.com/codeparticle/formal/commit/2b16deb9ab3be5cae6c00c4b19d65d91f4519c6d))
+
 ### [1.0.3](https://github.com/codeparticle/formal/compare/v1.0.2...v1.0.3) (2021-06-30)
 
 
