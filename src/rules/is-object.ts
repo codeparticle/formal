@@ -8,6 +8,6 @@ import { createRule } from '../rule'
 
 export const isObject = createRule({
   condition: (obj) =>
-    typeof obj === `object` && !Array.isArray(obj) && Boolean(obj),
+    !!obj && typeof obj === `object` && !Array.isArray(obj) && obj === Object(obj),
   message: (notObj) => `Value must be an object, but has type ${typeof notObj}`,
 })
