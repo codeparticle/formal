@@ -1063,10 +1063,10 @@
   resolved "https://registry.yarnpkg.com/@types/stack-utils/-/stack-utils-2.0.0.tgz#7036640b4e21cc2f259ae826ce843d277dad8cff"
   integrity sha512-RJJrrySY7A8havqpGObOB4W92QXKJo63/jFLLgpvOtsGUqbQZ9Sbgl35KMm1DjC6j7AvmmU2bIno+3IyEaemaw==
 
-"@types/webpack-config-utils@2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@types/webpack-config-utils/-/webpack-config-utils-2.3.0.tgz#9be9afe9501fac5e5ace2ea768381662b8d75f1f"
-  integrity sha512-v7pZWqpT4ZG7+h0bT6e4ZBcqB9q3SZktzKEn9GUiZo5FFGkvRs3w2SbnrKHaUSMriICZOM5niG4On6M696jpJQ==
+"@types/webpack-config-utils@2.3.1":
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/@types/webpack-config-utils/-/webpack-config-utils-2.3.1.tgz#93fe60b84da1a3763dd006b710a4462668c46254"
+  integrity sha512-hmenAfzgx23jhH4RszBrsFmaXoIH9gu1Ps3BmUyEgAk1tu1L1v+Lps/LVjTT8iGaLPV3hywingKhtFFYdK6tHg==
 
 "@types/yargs-parser@*":
   version "20.2.0"
