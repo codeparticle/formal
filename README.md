@@ -16,12 +16,11 @@ Here's a playful example:
 
 ```ts
 import { Validator } from '@codeparticle/formal';
-import { isString, minLength } from '@codeparticle/lib/rules';
+import { isString, minLength } from '@codeparticle/formal/esm2015lib/rules';
 
 const techPitchValidator = Validator.of(
   isString,
-  minLength(32),
-  maxLength(256)
+  minLength(32)
 );
 
 const validPitch = "It's like your favorite social network, but for dogs";
