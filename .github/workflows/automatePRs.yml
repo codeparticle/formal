@@ -4,24 +4,7 @@ on:
     branches: [master]
 
 jobs:
-  comment:
-    if: github.actor != 'dependabot[bot]' && github.actor != 'levijskal'
-    runs-on: ubuntu-latest
-    steps:
-      - name: comment
-        uses: actions/github-script@v2
-        with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
-          script: |
-            github.issues.createComment({
-              issue_number: ${{ github.event.number }},
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '/rebase'
-            })
-
   setup:
-    needs: comment
     runs-on: ubuntu-latest
 
     strategy:
@@ -54,3 +37,4 @@ jobs:
         uses: ridedott/merge-me-action@v2
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MERGE_METHOD: REBASE
