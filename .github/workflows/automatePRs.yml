@@ -3,24 +3,22 @@ on:
   pull_request:
     branches: [master]
 
-jobs:
-  rebase:
-    name: rebase
-    if: github.event.issue.pull_request != '' && contains(github.event.comment.body, '/rebase')
+comment:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout the latest code
-        uses: actions/checkout@v2
+      - uses: actions/github-script@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          fetch-depth: 0
-      - name: Automatic Rebase
-        uses: cirrus-actions/rebase@1.5
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '/rebase'
+            })
 
-  setup:
-    needs: rebase
+setup:
+    needs: comment
     runs-on: ubuntu-latest
 
     strategy:
