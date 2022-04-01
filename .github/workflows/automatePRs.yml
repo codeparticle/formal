@@ -1,0 +1,44 @@
+name: Automate PRs
+on:
+  pull_request_target:
+    branches:
+      - master
+    types:
+      - opened
+      - synchronize
+  push:
+    branches:
+      - master
+
+jobs:
+  setup:
+    name: setup
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: setup
+        run: yarn install
+      - run: yarn run lint
+      - run: yarn run build --if-present
+      - run: yarn run test
+      - run: yarn run test:ci
+      - run: yarn run verify
+
+  automerge:
+    name: automerge
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: automerge
+        uses: ridedott/merge-me-action@v2
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MERGE_METHOD: REBASE
+        timeout-minutes: 5
