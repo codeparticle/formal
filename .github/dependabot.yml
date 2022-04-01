@@ -3,8 +3,7 @@ updates:
   - package-ecosystem: npm
     directory: "/"
     schedule:
-      interval: weekly
-      time: "13:00"
+      interval: "daily"
     open-pull-requests-limit: 1
     ignore:
       - dependency-name: y18n
