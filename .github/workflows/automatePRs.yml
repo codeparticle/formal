@@ -5,8 +5,7 @@ on:
 
 jobs:
   rebase:
-    needs: setup
-    name: Rebase
+    name: rebase
     if: github.event.issue.pull_request != '' && contains(github.event.comment.body, '/rebase')
     runs-on: ubuntu-latest
     steps:
@@ -19,8 +18,9 @@ jobs:
         uses: cirrus-actions/rebase@1.5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
+
   setup:
+    needs: rebase
     runs-on: ubuntu-latest
 
     strategy:
