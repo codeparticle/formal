@@ -3,7 +3,8 @@ on:
   pull_request:
     branches: [master]
 
-comment:
+jobs:
+  comment:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/github-script@v3
@@ -14,10 +15,10 @@ comment:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '/rebase'
+              body: '👋 Thanks for reporting!'
             })
 
-setup:
+  setup:
     needs: comment
     runs-on: ubuntu-latest
 
