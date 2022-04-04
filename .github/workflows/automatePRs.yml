@@ -28,17 +28,6 @@ jobs:
       - run: yarn run test:ci
       - run: yarn run verify
 
-  close-pr:
-    needs: test
-    runs-on: ubuntu-latest
-    if: always() && (needs.test.result == 'failure')
-    steps:
-      - uses: peter-evans/close-pull@v2
-        with:
-          pull-request-number: 1
-          comment: Auto-closing pull request
-          delete-branch: true
-
   automerge:
     needs: test
     runs-on: ubuntu-latest
