@@ -1,0 +1,49 @@
+name: Automate PRs
+on:
+  pull_request_target:
+    branches:
+      - master
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: setup
+        run: yarn install
+      - run: yarn run lint
+      - run: yarn run build --if-present
+      - run: yarn run test
+      - run: yarn run test:ci
+      - run: yarn run verify
+
+  close-pr:
+    needs: test
+    runs-on: ubuntu-latest
+    if: always() && (needs.test.result == 'failure')
+    steps:
+      - uses: superbrothers/close-pull-request@v3
+
+  automerge:
+    needs: test
+    runs-on: ubuntu-latest
+
+    permissions:
+      pull-requests: write
+      contents: write
+
+    steps:
+      - uses: fastify/github-action-merge-dependabot@v3.0.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
