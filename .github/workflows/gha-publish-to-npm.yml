@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v2
       - run: git config --global user.name 'gha-publish-to-npm'
       - run: git config --global user.email 'gha-publish-to-npm@users.noreply.github.com'
-      - run: npm version major
+      - run: npm version patch
 
       # Specific for the project
       - run: chmod 755 ./ci/ci-test-commands.sh
