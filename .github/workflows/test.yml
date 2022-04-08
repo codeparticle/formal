@@ -1,0 +1,25 @@
+name: test
+# The script runs tests Specific for the project
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      # Specific for the project
+      - run: chmod 755 ./ci/ci-test-commands.sh
+      - run: ./ci/ci-test-commands.sh

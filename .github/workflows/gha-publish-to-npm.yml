@@ -1,0 +1,23 @@
+name: gha-publish-to-npm
+# The script publishes to NPM
+
+on:
+  schedule:
+    - cron: "0 1 15 * *" # On 15th, every month at 1:00
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: git config --global user.name 'gha-publish-to-npm'
+      - run: git config --global user.email 'gha-publish-to-npm@users.noreply.github.com'
+      - run: npm version major
+
+      # Specific for the project
+      - run: chmod 755 ./ci/ci-test-commands.sh
+      - run: ./ci/ci-test-commands.sh
+      - run: git push
+      - uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
