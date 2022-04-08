@@ -1,0 +1,19 @@
+name: close-stale-issues-and-PRs
+# The script closes stale issues and PRs
+
+on:
+  schedule:
+    - cron: "0 1 * * *" # Every day at 1:00
+
+jobs:
+  close-stale-issues-and-PRs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/stale@v4
+        with:
+          stale-issue-message: "Inactive issue"
+          stale-pr-message: "Inactive PR"
+          days-before-stale: 2
+          days-before-close: 1
+          only-labels: "dependencies"
+          delete-branch: true
