@@ -4,9 +4,7 @@
 const config = {
   preset: `ts-jest`,
   rootDir: `.`,
-  testMatch: [
-    `<rootDir>/test/**/*.ts?(x)`,
-  ],
+  testMatch: [`<rootDir>/test/**/*.ts?(x)`],
   testPathIgnorePatterns: [`dist`],
   coverageThreshold: {
     global: {
@@ -23,4 +21,5 @@ const config = {
   ],
 }
 
+// eslint-disable-next-line unicorn/prefer-module
 module.exports = config

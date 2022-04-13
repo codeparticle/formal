@@ -1,4 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-yarn style && npm test -- --bail --onlyChanged
+pnpm style && pnpm test -- --bail --onlyChanged
