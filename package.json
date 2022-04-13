@@ -14,7 +14,6 @@
   "es2015": "./dist/index.mjs",
   "typings": "./types/index.d.ts",
   "sideEffects": false,
-  "packageManager": "pnpm@6.32.6",
   "repository": {
     "type": "git",
     "url": "https://github.com/codeparticle/formal"
@@ -26,25 +25,25 @@
   },
   "scripts": {
     "cleanup": "shx rm -rf dist",
-    "prebuild": "pnpm cleanup && pnpm verify",
+    "prebuild": "yarn cleanup && yarn verify",
     "build": "tsup",
-    "postbuild": "node scripts/copy && pnpm size",
+    "postbuild": "node scripts/copy && yarn size",
     "docs": "typedoc -p . --theme minimal --target 'es6' --excludeNotExported --excludePrivate --ignoreCompilerErrors --exclude \"**/src/**/__tests__/*.*\" --out docs src/",
     "test": "jest -c ./jest.config.js",
-    "test:watch": "pnpm test -- --watch",
-    "test:coverage": "pnpm test -- --coverage",
-    "test:ci": "pnpm test -- --ci",
+    "test:watch": "yarn test -- --watch",
+    "test:coverage": "yarn test -- --coverage",
+    "test:ci": "yarn test -- --ci",
     "validate-js": "tsc -p ./config && tsc -p ./scripts",
-    "verify": "pnpm validate-js && pnpm style && pnpm test:ci",
+    "verify": "yarn validate-js && yarn style && yarn test:ci",
     "commit": "git-cz",
     "lint": "eslint 'src/**/*.ts' 'test/**/*.ts'",
-    "style": "pnpm lint -- --fix",
-    "prerelease": "pnpm build",
+    "style": "yarn lint -- --fix",
+    "prerelease": "yarn build",
     "release": "standard-version",
-    "postrelease": "node scripts/copy && node scripts/build && pnpm release:github && pnpm release:npm",
+    "postrelease": "node scripts/copy && node scripts/build && yarn release:github && yarn release:npm",
     "release:github": "git push --no-verify --follow-tags origin master",
-    "release:npm": "pnpm publish ./dist --access public",
-    "release:preflight": "pnpm pack ./dist --dry-run",
+    "release:npm": "npm publish ./dist --access public",
+    "release:preflight": "npm pack ./dist --dry-run",
     "size": "node scripts/file-size ./dist/index.js"
   },
   "config": {
@@ -54,7 +53,7 @@
   },
   "lint-staged": {
     "**/*.{ts,tsx,js,jsx}": [
-      "pnpm style"
+      "yarn style"
     ]
   },
   "dependencies": {
@@ -71,7 +70,6 @@
     "@typescript-eslint/parser": "5.19.0",
     "brotli-size": "^4.0.0",
     "commitizen": "^4.2.4",
-    "cross-var": "^1.1.0",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.13.0",
     "eslint-config-adjunct": "^4.11.1",
