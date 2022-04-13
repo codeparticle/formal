@@ -22,7 +22,7 @@ function writeDtsHeader() {
     pkg.version,
     pkg.author,
     pkg.repository.url,
-    pkg.devDependencies.typescript,
+    pkg.devDependencies.typescript
   )
 
   prependFileSync(TYPES_ROOT_FILE, dtsHeader)

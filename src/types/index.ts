@@ -51,5 +51,8 @@ export interface Success {
 }
 
 export type ValidationCheck = (v: any, vs?: any) => ValidationM
-export type ValidationRuleset = (ValidationRule | ((v: any) => ValidationRule))[]
+export type ValidationRuleset = (
+  | ValidationRule
+  | ((v: any) => ValidationRule)
+)[]
 export type ValidationErrorMessage = (fn: (v: any) => any) => string

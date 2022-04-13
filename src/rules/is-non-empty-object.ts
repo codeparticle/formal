@@ -12,7 +12,7 @@ export const isNonEmptyObject = createRule({
   // like 'Symbol' or properties defined by Object.defineProperty where
   // 'enumerable' is set to false.
   condition: (obj) =>
-    !!obj && typeof obj === `object` && Boolean(Reflect.ownKeys(obj).length),
+    !!obj && typeof obj === `object` && Reflect.ownKeys(obj).length > 0,
   message: (obj) =>
     typeof obj === `object`
       ? `Object must not be empty`

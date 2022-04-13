@@ -1,9 +1,5 @@
 import { pipeValidators, ValidationError } from './internal/utils'
-import {
-  ValidationActions,
-  ValidationM,
-  ValidationRuleset,
-} from './types'
+import { ValidationActions, ValidationM, ValidationRuleset } from './types'
 
 /**
  * convenience method to generate a Success or Fail with a custom message (or message function),
@@ -20,7 +16,7 @@ class Validator implements Validator {
   result: ValidationM | null = null
 
   constructor(...rules: ValidationRuleset) {
-    this.rules = [].concat(...rules)
+    this.rules = rules.flat()
   }
 
   /**
@@ -38,12 +34,13 @@ class Validator implements Validator {
     return this
   }
 
+  // eslint-disable-next-line unicorn/no-thenable
   then(opts: ValidationActions) {
     if (this.result) {
       return this.result.fold(opts)
     } else {
       throw new ValidationError(
-        `Validator failed to run - did you supply rules and use validate() first?`,
+        `Validator failed to run - did you supply rules and use validate() first?`
       )
     }
   }
