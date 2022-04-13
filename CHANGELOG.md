@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/codeparticle/formal/compare/v1.0.5...v2.0.0) (2022-04-13)
+
+
+### Features
+
+* **update-build:** update build to use tsup, rm rollup, update eslint ([8f24093](https://github.com/codeparticle/formal/commit/8f24093c62285c0f7c384d6a51826627f09b050d))
+
+
+### Bug Fixes
+
+* **github:** fix builds due to missing jest types ([70c5eac](https://github.com/codeparticle/formal/commit/70c5eacdfe3af4b138437565507cc9a070035c3b))
+* **github:** revert back to yarn from pnpm ([c3a173f](https://github.com/codeparticle/formal/commit/c3a173f46da604727946b0486b2a262a7d75221c))
+
 ### [1.0.5](https://github.com/codeparticle/formal/compare/v1.0.4...v1.0.5) (2022-01-20)
 
 ### [1.0.4](https://github.com/codeparticle/formal/compare/v1.0.3...v1.0.4) (2021-12-10)
