@@ -40,7 +40,7 @@
     "style": "yarn lint -- --fix",
     "prerelease": "yarn build",
     "release": "standard-version",
-    "postrelease": "node scripts/copy && node scripts/build && yarn release:github && yarn release:npm",
+    "postrelease": "node scripts/copy && node scripts/build && yarn release:github && npm run release:npm",
     "release:github": "git push --no-verify --follow-tags origin master",
     "release:npm": "npm publish ./dist --access public",
     "release:preflight": "npm pack ./dist --dry-run",
