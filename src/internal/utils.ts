@@ -15,12 +15,15 @@ class ValidationError extends Error {}
  */
 const id = (x: any) => x
 
-const pipeValidators: (fns: ValidationRuleset, values?: any) => ValidationCheck = (fns, values) => (
-  value: any,
-) => {
+const pipeValidators: (
+  fns: ValidationRuleset,
+  values?: any
+) => ValidationCheck = (fns, values) => (value: any) => {
   const [first, ...rest] = fns
 
-  const firstCheck = (typeof first === `function` ? first(values) : first).check(value)
+  const firstCheck = (
+    typeof first === `function` ? first(values) : first
+  ).check(value)
 
   // starting with the first function that returns a monad,
   // we chain through the rest of the functions
@@ -28,7 +31,9 @@ const pipeValidators: (fns: ValidationRuleset, values?: any) => ValidationCheck 
   return rest.reduce(
     (prevM, nextM) =>
       // eslint-disable-next-line @typescript-eslint/unbound-method
-      prevM.chain(typeof nextM === `function` ? nextM(values)[`check`] : nextM.check),
+      prevM.chain(
+        typeof nextM === `function` ? nextM(values)[`check`] : nextM.check,
+      ),
     firstCheck,
   )
 }
@@ -77,11 +82,13 @@ const checkIsValidationM = (validator: ValidationM): void => {
 
 const validateObject =
   <Rules extends Record<string, ValidationRuleset>>(fieldRules: Rules) =>
-  <Vals extends Record<keyof Rules, any>>(values: Vals): {
-  values: Vals
-  hasErrors: boolean
-  errors: Partial<Record<keyof Rules, string[]>>
-} => {
+  <Vals extends Record<keyof Rules, any>>(
+      values: Vals,
+    ): {
+    values: Vals
+    hasErrors: boolean
+    errors: Partial<Record<keyof Rules, string[]>>
+  } => {
     const errors = Object.keys(fieldRules).reduce((errs, fieldName) => {
       if (!(fieldName in values)) {
         throw new Error(
@@ -93,7 +100,10 @@ const validateObject =
         fieldRules[fieldName],
         values,
       )
-      const checkResults: ValidationM = applyFieldChecks(values[fieldName], values)
+      const checkResults: ValidationM = applyFieldChecks(
+        values[fieldName],
+        values,
+      )
 
       if (!checkResults.isSuccess) {
         errs[fieldName] = checkResults.errors
@@ -110,10 +120,10 @@ const validateObject =
   }
 
 export {
-  id,
   checkIsValidationM,
+  id,
   pipeValidators,
   returnConstant,
-  ValidationError,
   validateObject,
+  ValidationError,
 }

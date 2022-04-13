@@ -15,37 +15,33 @@ Formal makes it simple to validate arbitrary data with whatever rules you'd like
 Here's a playful example:
 
 ```ts
-import { Validator } from '@codeparticle/formal';
-import { isString, minLength } from '@codeparticle/lib/rules';
+import { Validator } from '@codeparticle/formal'
+import { isString, minLength } from '@codeparticle/lib/rules'
 
-const techPitchValidator = Validator.of(
-  isString,
-  minLength(32),
-  maxLength(256)
-);
+const techPitchValidator = Validator.of(isString, minLength(32), maxLength(256))
 
-const validPitch = "It's like your favorite social network, but for dogs";
-const invalidPitch = "It's an AI to rule us all";
+const validPitch = "It's like your favorite social network, but for dogs"
+const invalidPitch = "It's an AI to rule us all"
 
 const validResult = techPitchValidator
   .validate(validPitch)
-  .map((str) => str.toUpperCase());
+  .map((str) => str.toUpperCase())
 // returns Success("IT'S LIKE YOUR FAVORITE SOCIAL NETWORK, BUT FOR DOGS") - maps can change successfully checked values
 
 const invalidResult = techPitchValidator
   .validate(invalidPitch)
-  .map((str) => str.toUpperCase());
+  .map((str) => str.toUpperCase())
 // returns Fail('Must be at least 32 characters') - maps have no effect on failures
 
 validResult.then({
   onSuccess: () => alert("We love it kid. Here's 5 million."),
   onFail: (errs) => console.log(errs), // can also simply be console.log
-});
+})
 
 invalidResult.then({
   onSuccess: () => alert("We love it kid. Here's 5 million."),
   onFail: (errs) => errs.map(console.log), // 'Must be at least 32 characters'
-});
+})
 ```
 
 ### validateObject
@@ -54,21 +50,21 @@ For validating forms or large API responses, formal exposes a `validateObject` u
 of a form with a required name and email field.
 
 ```ts
-import { rules, validateObject } from '@codeparticle/formal';
+import { rules, validateObject } from '@codeparticle/formal'
 
-const { isNonEmptyString, isValidEmail } = rules;
+const { isNonEmptyString, isValidEmail } = rules
 
 const validateForm = validateObject({
   name: [isNonEmptyString],
   email: [isNonEmptyString, isValidEmail],
-});
+})
 
 const formValues = {
   name: 'hello',
   email: '',
-};
+}
 
-validateForm(formValues);
+validateForm(formValues)
 ```
 
 calling this will return a schema like this:
@@ -91,16 +87,16 @@ formal is flexible to your style, and exposes a `pipeValidators` function for wr
 Once run, these validation containers are supplied with an `isSuccess` property for use in filters,with the ability to reach for the internally held `value`. While not recommended for control flow, it's useful in cases where you're running validation over a long list of items, as well as in writing test cases.
 
 ```ts
-import { pipeValidators, rules } from '@codeparticle/formal';
-const { isString, minLength } = rules;
+import { pipeValidators, rules } from '@codeparticle/formal'
+const { isString, minLength } = rules
 
 // ...
-const isLongString = pipeValidators([isString, minLength(50)]);
+const isLongString = pipeValidators([isString, minLength(50)])
 
 values
   .filter((val) => isLongString(val).isSuccess)
   .map((container) => container.value)
-  .map((str) => console.log(str));
+  .map((str) => console.log(str))
 
 // this technique can make testing a breeze.
 
@@ -113,14 +109,14 @@ const testObjects = [
   { required: 'present' },
   { required: 'present' },
   { required: 'wrong' },
-];
+]
 
-const check = pipeValidators([isObject, hasProp('required')]);
+const check = pipeValidators([isObject, hasProp('required')])
 
 for (const test of testObjects) {
-  expect(check(test).isSuccess).toBe(true); // passes
+  expect(check(test).isSuccess).toBe(true) // passes
 
-  expect(check(test).value).toBe('present'); // fails
+  expect(check(test).value).toBe('present') // fails
 }
 ```
 
@@ -175,34 +171,32 @@ Sometimes, the messages included with built-in or existing checks need to be mod
 `withMessage` creates a new copy of the rule, so don't worry about accidentally overwriting something important when using it. Like `createRule`, you can supply a string, or a function that returns a string.
 
 ```ts
-import { withMessage, rules } from '@codeparticle/formal';
+import { withMessage, rules } from '@codeparticle/formal'
 
 const withAdminFormErrorMessage = withMessage(
   `Admins must enter an administrator ID.`
-);
+)
 const withUserFormErrorMessage = withMessage(
   `Users must enter their first and last name to sign up`
-);
+)
 
 const withInternationalizedErrorMessage = withMessage(
   intl.formatMessage('form.error.message')
-);
+)
 
 const withNewMessageFn = withMessage(
   (badValue) => `${badValue} is invalid for this field.`
-);
+)
 
-const adminFormFieldCheck = withAdminFormErrorMessage(rules.isNonEmptyString);
+const adminFormFieldCheck = withAdminFormErrorMessage(rules.isNonEmptyString)
 
-const userFormFieldCheck = withUserFormErrorMessage(rules.isNonEmptyString);
+const userFormFieldCheck = withUserFormErrorMessage(rules.isNonEmptyString)
 
 const internationalizedFieldCheck = withInternationalizedErrorMessage(
   rules.isString
-);
+)
 
-const customMessageFunctionFieldCheck = withNewMessageFn(
-  rules.isNonEmptyString
-);
+const customMessageFunctionFieldCheck = withNewMessageFn(rules.isNonEmptyString)
 ```
 
 ## Creating your own validators
@@ -214,20 +208,20 @@ Using `createRule` is a quick way to check things that _don't change the value t
 `createRule` takes two (required) options - a condition function, and a message. The message can be a string, or it can be a function that returns a string, in case you'd like to tailor your messages.
 
 ```ts
-import { createRule } from '@codeparticle/formal';
+import { createRule } from '@codeparticle/formal'
 export const containsMatchingString = (match) =>
   createRule({
     condition: (str) => str.includes(match),
     message: (failedStr) => `Value ${failedStr} does not include today's date`,
-  });
+  })
 ```
 
 createRule also allows more customized checks through an optional parameter called `transform`
 that allows for a transformation of the value _before_ it's handed off to the next validation check.
 
 ```ts
-import { createRule } from '../rule';
-import { hasProp } from './has-prop';
+import { createRule } from '../rule'
+import { hasProp } from './has-prop'
 
 // below is the actual source code of the built-in getProp function.
 export const getProp = (property) =>
@@ -237,7 +231,7 @@ export const getProp = (property) =>
     // transform the object to the value of the successfully found property
     // before handing off to the next check / function.
     transform: (obj) => obj[property],
-  });
+  })
 ```
 
 ## Usage with Typescript
@@ -262,7 +256,7 @@ import {
   ValidationRuleSet,
   // interface for the Validator class
   Validator,
-} from '@codeparticle/formal/types';
+} from '@codeparticle/formal/types'
 ```
 
 [![Build Status](https://travis-ci.org/codeparticle/codeparticle-formal.svg?branch=master)](https://travis-ci.org/codeparticle/codeparticle-formal)

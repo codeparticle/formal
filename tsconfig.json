@@ -1,29 +1,24 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
-    "moduleResolution": "node",
-    "module": "esnext",
-    "target": "es5",
-    "lib": [
-      "dom",
-      "esnext"
-    ],
-    "strict": false,
-    "noImplicitAny": false,
-    "downlevelIteration": true,
     "allowSyntheticDefaultImports": true,
-    "strictNullChecks": false,
-    "esModuleInterop": true,
-    "jsx": "react",
-    "sourceMap": true,
-    "stripInternal": true,
+    "baseUrl": ".",
     "declaration": true,
-    "declarationMap": true,
     "declarationDir": "dist/types",
+    "declarationMap": true,
+    "downlevelIteration": true,
+    "esModuleInterop": true,
+    "lib": ["dom", "esnext"],
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "noImplicitAny": false,
     "outDir": "dist/esm5",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "strict": false,
+    "strictNullChecks": false,
+    "stripInternal": true,
+    "target": "ES2015"
   },
-  "include": [
-    "src"
-  ],
-  "compileOnSave": false
+  "include": ["src"]
 }

@@ -1,15 +1,9 @@
 {
-    "extends": "./tsconfig.json",
-    "compilerOptions": {
-        "allowJs": true,
-        "checkJs": true
-    },
-    "include": [
-        "test",
-        "./jest.config.js",
-        "scripts",
-    ],
-    "exclude": [
-        "src"
-    ]
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true
+  },
+  "include": ["test", "./jest.config.js", "scripts", "./tsup.config.ts", "./.eslintrc.js"],
+  "exclude": ["src"]
 }

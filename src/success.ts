@@ -26,9 +26,9 @@ class Success implements Success {
       checkIsValidationM(result)
 
       return result
-    } catch (e) {
-      console.error(e.message)
-      console.error(e.stack)
+    } catch (error) {
+      console.error(error.message)
+      console.error(error.stack)
     }
   }
 

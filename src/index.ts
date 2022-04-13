@@ -1,12 +1,9 @@
-import * as rules from './rules'
-
-export * from './utils'
-export * from './rules'
-export * from './types'
-
-export { rules }
 export { Fail } from './fail'
-export { createRule, withMessage } from './rule'
-export { Success } from './success'
 export { pipeValidators, validateObject } from './internal/utils'
+export { createRule, withMessage } from './rule'
+export * from './rules'
+export * as rules from './rules'
+export { Success } from './success'
+export * from './types'
+export * from './utils'
 export { Validator } from './validation'

@@ -28,9 +28,7 @@ export const hasProp = (...properties: string[]) => {
     message: (obj) => {
       // list out the keys that we have
       // to help us spot where things may have gone wrong prior
-      const keys = Object.keys(obj)
-        .toString()
-        .replace(`,`, `,\n`)
+      const keys = Object.keys(obj).toString().replace(`,`, `,\n`)
 
       return `Object containing properties ${keys} does not include ${prop}${
         properties.length > 1 ? ` at path ${properties.join(`.`)}` : ``

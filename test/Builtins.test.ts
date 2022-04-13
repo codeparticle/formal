@@ -2,12 +2,12 @@
  * @file Tests for built-in validations.
  */
 
-import { pipeValidators } from '../src/internal/utils'
 import {
   getProp,
   greaterThan,
   hasProp,
   isArray,
+  isEqualTo,
   isNonEmptyArray,
   isNonEmptyObject,
   isNonEmptyString,
@@ -19,8 +19,8 @@ import {
   matchesRegex,
   maxLength,
   minLength,
-  isEqualTo,
 } from '../src'
+import { pipeValidators } from '../src/internal/utils'
 
 describe(`@codeparticle/formal built-in validations`, () => {
   const testStrings = [
@@ -41,7 +41,7 @@ describe(`@codeparticle/formal built-in validations`, () => {
     1776,
     Infinity,
     // float
-    0.112358,
+    0.112_358,
     // scientific
     1.3e9,
     // binary
@@ -49,7 +49,7 @@ describe(`@codeparticle/formal built-in validations`, () => {
     // octal
     0o012,
     // hex
-    0xffffffff,
+    0xff_ff_ff_ff,
   ]
 
   const emptyArray = []
@@ -61,7 +61,7 @@ describe(`@codeparticle/formal built-in validations`, () => {
   ]
 
   const regexes = {
-    testCase: /[0-9]/g,
+    testCase: /\d/g,
     good: `0123459678`,
     bad: `what did I do?`,
   }
@@ -84,7 +84,7 @@ describe(`@codeparticle/formal built-in validations`, () => {
       ])(testObject)
 
       expect(testCase.isSuccess).toBe(true)
-      expect(testCase.value).toEqual(`value`)
+      expect(testCase.value).toBe(`value`)
     })
     it(`fails with bad values`, () => {
       const testCase = pipeValidators([

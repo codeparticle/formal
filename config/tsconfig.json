@@ -10,7 +10,5 @@
     "noEmit": true,
     "importHelpers": false
   },
-  "include": [
-    ".", "../jest.config.js"
-  ]
+  "include": [".", "../jest.config.js"]
 }

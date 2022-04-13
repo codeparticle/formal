@@ -5,14 +5,13 @@ import { id, validateObject } from '../src/internal/utils'
 import { createRule, withMessage } from '../src/rule'
 import {
   getProp,
+  isEqualTo,
   isNonEmptyString,
   isNumber,
   isObject,
   isString,
   isValidEmail,
-  isEqualTo,
 } from '../src/rules'
-
 import { Validator } from '../src/validation'
 
 describe(`Validation`, () => {
@@ -34,7 +33,7 @@ describe(`Validation`, () => {
       isObject,
       getProp(`nested`, `property`),
       getProp(`num`),
-      isNumber,
+      isNumber
     ).validate(testObject)
 
     const folded = testValue.then({
@@ -42,30 +41,28 @@ describe(`Validation`, () => {
       onFail: id,
     })
 
-    expect(testValue.result.isSuccess).toEqual(true)
-    expect(folded).toEqual(2)
+    expect(testValue?.result?.isSuccess).toBe(true)
+    expect(folded).toBe(2)
   })
 
   it(`Collects errors when multiple conditions fail`, () => {
     const failedObject = Validator.of(
       isObject,
-      getProp(`nested`, `property`, `fail`),
+      getProp(`nested`, `property`, `fail`)
     ).validate(testObject)
 
     const failedString = Validator.of(isString).validate(2)
     const failedNumber = Validator.of(isNumber).validate(`wow`)
 
-    expect(failedObject.result.isSuccess).toEqual(false)
-    expect(failedString.result.isSuccess).toEqual(false)
-    expect(failedNumber.result.isSuccess).toEqual(false)
+    expect(failedObject?.result?.isSuccess).toBe(false)
+    expect(failedString?.result?.isSuccess).toBe(false)
+    expect(failedNumber?.result?.isSuccess).toBe(false)
 
     expect(failedObject.then(testOpts)).toMatchObject([
       `Object does not include property .fail at path .nested.property.fail`,
     ])
 
-    expect(failedString.then(testOpts)).toMatchObject([
-      `Value is not a string`,
-    ])
+    expect(failedString.then(testOpts)).toMatchObject([`Value is not a string`])
     expect(failedNumber.then(testOpts)).toMatchObject([
       `Value wow is not a number`,
     ])
@@ -91,7 +88,7 @@ describe(`Rule`, () => {
 
     expect(newRule.check(2).isSuccess).toBe(false)
     expect(overwriteFn(newRule).check(2).errors[0]).toBe(
-      `Man, that's a crooked 2`,
+      `Man, that's a crooked 2`
     )
     expect(newRule.check(2).errors[0]).toBe(`Whoa`)
   })
@@ -99,14 +96,13 @@ describe(`Rule`, () => {
 
 describe(`validateObject`, () => {
   it(`can validate over an object, returning the original with an attached error object containing messages`, () => {
-
     const hasExactlyTwoNameObjects = createRule({
-      condition: arr => arr.length === 2,
+      condition: (arr) => arr.length === 2,
       message: `Exactly two names must exist`,
     })
 
     const daveIsSpelledBackwardsSomewhere = createRule({
-      condition: arr => Boolean(arr.find(o => o.name === `evad`)),
+      condition: (arr) => arr.some((o) => o.name === `evad`),
       message: `Dave is not spelled backwards somewhere`,
     })
 
@@ -114,9 +110,13 @@ describe(`validateObject`, () => {
       // required fields
       firstName: [isNonEmptyString],
       lastName: [isNonEmptyString],
-      email: [isNonEmptyString, isValidEmail, values => isEqualTo((values[`confirmationEmail`]))],
+      email: [
+        isNonEmptyString,
+        isValidEmail,
+        (values) => isEqualTo(values[`confirmationEmail`]),
+      ],
       confirmationEmail: [
-        values => isEqualTo(values[`email`]),
+        (values) => isEqualTo(values[`email`]),
         isNonEmptyString,
         isValidEmail,
       ],
@@ -145,11 +145,14 @@ describe(`validateObject`, () => {
         email: `savesday@everyday.net`,
         confirmationEmail: `savesday@everyday.net`,
         city: ``,
-        names: [{
-          name: `dave`,
-        }, {
-          name: `evad`,
-        }],
+        names: [
+          {
+            name: `dave`,
+          },
+          {
+            name: `evad`,
+          },
+        ],
       },
     }
 
@@ -163,9 +166,15 @@ describe(`validateObject`, () => {
       firstName: [`Value must be a non-empty string`],
       lastName: [`Value must be a non-empty string`],
       email: [`Values must be equal`],
-      confirmationEmail: [`Values must be equal`, `Must be a valid email address`],
+      confirmationEmail: [
+        `Values must be equal`,
+        `Must be a valid email address`,
+      ],
       city: [`Value is not a string`],
-      names: [`Exactly two names must exist`, `Dave is not spelled backwards somewhere`],
+      names: [
+        `Exactly two names must exist`,
+        `Dave is not spelled backwards somewhere`,
+      ],
     })
   })
 })

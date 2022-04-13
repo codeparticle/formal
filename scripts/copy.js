@@ -16,7 +16,7 @@ function main() {
   const distPackageJson = createDistPackageJson(packageJson)
 
   const cpFiles = [`README.md`, `CHANGELOG.md`, `LICENSE.md`, `.npmignore`].map(
-    (file) => resolve(projectRoot, file),
+    (file) => resolve(projectRoot, file)
   )
 
   cp(cpFiles, distPath)
@@ -35,12 +35,12 @@ function cp(source, target) {
   if (isDir) {
     if (!Array.isArray(source)) {
       throw new Error(
-        `if <target> is directory you need to provide source as an array`,
+        `if <target> is directory you need to provide source as an array`
       )
     }
 
     source.forEach((file) =>
-      copyFileSync(file, resolve(target, basename(file))),
+      copyFileSync(file, resolve(target, basename(file)))
     )
 
     return

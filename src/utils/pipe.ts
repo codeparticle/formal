@@ -5,8 +5,9 @@
  * @license MIT
  */
 
-const pipe = <T=any>(...fns: Array<(v: T) => any>) => (x: T) => fns.reduce((v, f) => f(v), x)
+const pipe =
+  <T = any>(...fns: Array<(v: T) => any>) =>
+    (x: T) =>
+      fns.reduce((v, f) => f(v), x)
 
-export {
-  pipe,
-}
+export { pipe }

@@ -1,22 +1,13 @@
-const {
-  basename,
-  normalize
-} = require(`path`)
-const {
-  readFile: readFileCb
-} = require(`fs`)
-const {
-  promisify
-} = require(`util`)
+const { basename, normalize } = require(`path`)
+const { readFile: readFileCb } = require(`fs`)
+const { promisify } = require(`util`)
 const readFile = promisify(readFileCb)
 
 const kolor = require(`kleur`)
 const prettyBytes = require(`pretty-bytes`)
 const brotliSize = require(`brotli-size`)
 const gzipSize = require(`gzip-size`)
-const {
-  log
-} = console
+const { log } = console
 const pkg = require(`../package.json`)
 
 main()
@@ -29,15 +20,14 @@ async function main() {
       return {
         path: filePath,
         blob: await readFile(filePath, {
-          encoding: `utf8`
+          encoding: `utf8`,
         }),
       }
-    }),
+    })
   )
 
   const output = await Promise.all(
-    fileMetadata.map((metadata) => getSizeInfo(metadata.blob, metadata
-      .path)),
+    fileMetadata.map((metadata) => getSizeInfo(metadata.blob, metadata.path))
   )
 
   log(getFormatedOutput(pkg.name, output))
@@ -73,7 +63,7 @@ function formatSize(size, filename, type, raw) {
   const MAGIC_INDENTATION = type === `br` ? 13 : 10
 
   return `${` `.repeat(MAGIC_INDENTATION - pretty.length)}${kolor[color](
-    pretty,
+    pretty
   )}: ${kolor.white(basename(filename))}.${type}`
 }
 
@@ -86,8 +76,7 @@ function formatSize(size, filename, type, raw) {
 async function getSizeInfo(code, filename, raw = false) {
   const isRaw = raw || code.length < 5000
   const gzip = formatSize(await gzipSize(code), filename, `gz`, isRaw)
-  const brotli = formatSize(brotliSize.sync(code), filename, `br`,
-    isRaw)
+  const brotli = formatSize(brotliSize.sync(code), filename, `br`, isRaw)
 
   return gzip + `\n` + brotli
 }

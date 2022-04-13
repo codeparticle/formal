@@ -42,13 +42,10 @@ class Fail implements Fail {
 
       checkIsValidationM(result)
 
-      return new Fail(
-        result.value,
-        this.errors.concat(result?.errors ?? []),
-      )
-    } catch (e) {
-      console.error(e.message)
-      console.error(e.stack)
+      return new Fail(result.value, [...this.errors, ...(result?.errors ?? [])])
+    } catch (error) {
+      console.error(error.message)
+      console.error(error.stack)
     }
   }
 

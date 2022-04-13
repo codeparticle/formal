@@ -5,8 +5,9 @@
  * @license MIT
  */
 
-const compose = <T=any>(...fns: Array<(v: T) => any>) => (x: T) => fns.reduceRight((v, f) => f(v), x)
+const compose =
+  <T = any>(...fns: Array<(v: T) => any>) =>
+    (x: T) =>
+      fns.reduceRight((v, f) => f(v), x)
 
-export {
-  compose,
-}
+export { compose }
