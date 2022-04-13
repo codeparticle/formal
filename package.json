@@ -14,6 +14,7 @@
   "es2015": "./dist/index.mjs",
   "typings": "./types/index.d.ts",
   "sideEffects": false,
+  "packageManager": "pnpm@6.32.6",
   "repository": {
     "type": "git",
     "url": "https://github.com/codeparticle/formal"
