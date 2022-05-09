@@ -94,7 +94,7 @@
     "eslint-plugin-switch-case": "^1.1.2",
     "eslint-plugin-unicorn": "^42.0.0",
     "gzip-size": "^6.0.0",
-    "husky": "^7.0.4",
+    "husky": "^8.0.1",
     "jest": "^27.5.1",
     "jest-watch-typeahead": "^1.0.0",
     "kleur": "^4.1.4",
