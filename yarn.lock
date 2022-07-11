@@ -1887,7 +1887,7 @@ cosmiconfig-typescript-loader@^2.0.0:
     cosmiconfig "^7"
     ts-node "^10.7.0"
 
-cosmiconfig@^7, cosmiconfig@^7.0.0:
+cosmiconfig@^7, cosmiconfig@^7.0.0, cosmiconfig@^7.0.1:
   version "7.0.1"
   resolved "https://registry.yarnpkg.com/cosmiconfig/-/cosmiconfig-7.0.1.tgz#714d756522cace867867ccb4474c5d01bbae5d6d"
   integrity sha512-a1YWNUV2HwGimB7dU2s1wUMurNKjpx60HxBB6xUM8Re+2s1g1IIfJvFR0/iCF+XHdE0GMTKTuLR32UQff4TEyQ==
@@ -2333,15 +2333,15 @@ escodegen@^2.0.0:
     source-map "~0.6.1"
 
 eslint-config-adjunct@^4.11.1:
-  version "4.11.1"
-  resolved "https://registry.yarnpkg.com/eslint-config-adjunct/-/eslint-config-adjunct-4.11.1.tgz#a7194c58bf0f62d73d76208d8389af852de3b589"
-  integrity sha512-vZ2sYJpYXuvetCrIXDuDXwJUbUuh9+3co8gAUxlX6Avjsj9J2qvm0wZxDC7m/u5FnjEB3T/15HufcL8w9MuaGw==
+  version "4.11.2"
+  resolved "https://registry.yarnpkg.com/eslint-config-adjunct/-/eslint-config-adjunct-4.11.2.tgz#21810dd76d155f4e4fc585448a68b9c7ff5424d1"
+  integrity sha512-oj90FpZISBEL6DzNzWXTyjBhlxz6tvo9N4HFWVyCFPvgDlelvW472QAx0E8Tq2dIdI14uLKSt2ylf856XJ0q5g==
   dependencies:
     arrify "^2.0.1"
-    cosmiconfig "^7.0.0"
+    cosmiconfig "^7.0.1"
     lodash "^4.17.21"
     mkdirp "^1.0.4"
-    ramda "^0.27.1"
+    ramda "^0.28.0"
     read-pkg-up "7.0.1"
     rimraf "^3.0.2"
 
@@ -4865,10 +4865,10 @@ quick-lru@^4.0.1:
   resolved "https://registry.yarnpkg.com/quick-lru/-/quick-lru-4.0.1.tgz#5b8878f113a58217848c6482026c73e1ba57727f"
   integrity sha512-ARhCpm70fzdcvNQfPoy49IaanKkTlRWF2JMzqhcJbhSFRZv7nPTvZJdcY7301IPmvW+/p0RgIWnQDLJxifsQ7g==
 
-ramda@^0.27.1:
-  version "0.27.2"
-  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.27.2.tgz#84463226f7f36dc33592f6f4ed6374c48306c3f1"
-  integrity sha512-SbiLPU40JuJniHexQSAgad32hfwd+DRUdwF2PlVuI5RZD0/vahUco7R8vD86J/tcEKKF9vZrUVwgtmGCqlCKyA==
+ramda@^0.28.0:
+  version "0.28.0"
+  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.28.0.tgz#acd785690100337e8b063cab3470019be427cc97"
+  integrity sha512-9QnLuG/kPVgWvMQ4aODhsBUFKOUmnbUnsSXACv+NCQZcHbeb+v8Lodp8OVxtRULN1/xOyYLLaL6npE6dMq5QTA==
 
 react-is@^17.0.1:
   version "17.0.2"
