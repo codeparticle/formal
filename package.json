@@ -76,7 +76,7 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-array-func": "^3.1.7",
     "eslint-plugin-eslint-comments": "^3.2.0",
-    "eslint-plugin-html": "^6.2.0",
+    "eslint-plugin-html": "^7.0.0",
     "eslint-plugin-jest": "^26.1.4",
     "eslint-plugin-jest-async": "^1.0.3",
     "eslint-plugin-json": "^3.1.0",
