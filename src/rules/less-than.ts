@@ -11,7 +11,7 @@ import { createRule } from '../rule'
  * @param {Number} max - Maximum value.
  */
 export const lessThan = (max) =>
-  createRule({
-    condition: (num) => num < max,
-    message: (num) => `${num} must be less than ${max}`,
-  })
+	createRule({
+		condition: (num) => num < max,
+		message: (num) => `${num} must be less than ${max}`,
+	})

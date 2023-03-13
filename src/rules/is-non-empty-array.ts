@@ -6,9 +6,7 @@
 import { createRule } from '../rule'
 
 export const isNonEmptyArray = createRule({
-  condition: (arr) => Array.isArray(arr) && arr.length > 0,
-  message: (val) =>
-    Array.isArray(val)
-      ? `Array must not be empty`
-      : `No array values found in ${val}`,
+	condition: (arr) => Array.isArray(arr) && arr.length > 0,
+	message: (val) =>
+		Array.isArray(val) ? 'Array must not be empty' : `No array values found in ${val}`,
 })

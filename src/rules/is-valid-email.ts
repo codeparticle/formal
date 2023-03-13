@@ -10,7 +10,7 @@ import { createRule } from '../rule'
  * Does NOT check that the email is a valid, in-use address.
  */
 export const isValidEmail = createRule({
-  // credit to https://tylermcginnis.com/validate-email-address-javascript/ for this regex
-  condition: (str) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(str),
-  message: `Must be a valid email address`,
+	// credit to https://tylermcginnis.com/validate-email-address-javascript/ for this regex
+	condition: (str) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(str),
+	message: 'Must be a valid email address',
 })

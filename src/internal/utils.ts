@@ -4,6 +4,7 @@
  * @author Nick Krause
  * @license MIT
  */
+
 import { ValidationCheck, ValidationM, ValidationRuleset } from '../types'
 
 class ValidationError extends Error {}
@@ -13,30 +14,27 @@ class ValidationError extends Error {}
  * @param {Any} x - Any param supplied to this function.
  * @returns {Any} The param supplied to this function.
  */
-const id = (x: any) => x
+const id = <T>(x: T) => x
 
-const pipeValidators: (
-  fns: ValidationRuleset,
-  values?: any
-) => ValidationCheck = (fns, values) => (value: any) => {
-  const [first, ...rest] = fns
+const pipeValidators =
+	<ValueType = any, Values extends Record<string, any> = Record<string, any>>(
+		fns: ValidationRuleset<ValueType, Values>,
+		values?: Values,
+	): ValidationCheck<ValueType, Values> =>
+	(value: any) => {
+		const [first, ...rest] = fns
 
-  const firstCheck = (
-    typeof first === `function` ? first(values) : first
-  ).check(value)
+		const firstCheck = (typeof first === 'function' ? first(values) : first).check(value)
 
-  // starting with the first function that returns a monad,
-  // we chain through the rest of the functions
-  // in order to combine them all into a single check.
-  return rest.reduce(
-    (prevM, nextM) =>
-      // eslint-disable-next-line @typescript-eslint/unbound-method
-      prevM.chain(
-        typeof nextM === `function` ? nextM(values)[`check`] : nextM.check,
-      ),
-    firstCheck,
-  )
-}
+		// starting with the first function that returns a monad,
+		// we chain through the rest of the functions
+		// in order to combine them all into a single check.
+		return rest.reduce(
+			(prevM, nextM) =>
+				prevM.chain(typeof nextM === 'function' ? nextM(values)['check'] : nextM.check),
+			firstCheck,
+		)
+	}
 
 /**
  * returnConstant is a convenience method that can be used as an argument to functions that require a function,
@@ -44,7 +42,7 @@ const pipeValidators: (
  * @param {Any} x - Primitive value to be returned.
  */
 function returnConstant<T>(x: T): () => T {
-  return () => x
+	return () => x
 }
 
 /**
@@ -53,7 +51,7 @@ function returnConstant<T>(x: T): () => T {
  * @returns {String} - A tailored error message that attempts to pinpoint the error.
  */
 const validationErrorMessage = (fn: (v: any) => any): string => {
-  return `
+	return `
 Chaining validation only works if every function has a .chain() method that takes a Success or Fail object.
 Check the type of ${fn.constructor.name} - was it written using createRule?
 `
@@ -64,14 +62,10 @@ Check the type of ${fn.constructor.name} - was it written using createRule?
  * @param {Function} validator - Parameter description.
  * @throws {Exception Type} Exception description.
  */
-const checkIsValidationM = (validator: ValidationM): void => {
-  if (
-    !(
-      validator.hasOwnProperty(`value`) && validator.hasOwnProperty(`isSuccess`)
-    )
-  ) {
-    throw new ValidationError(validationErrorMessage(validator as any))
-  }
+const checkIsValidationM = (validator: ValidationM<any>) => {
+	if (!(validator.hasOwnProperty('value') && validator.hasOwnProperty('isSuccess'))) {
+		throw new ValidationError(validationErrorMessage(validator as any))
+	}
 }
 
 /**
@@ -81,49 +75,37 @@ const checkIsValidationM = (validator: ValidationM): void => {
  */
 
 const validateObject =
-  <Rules extends Record<string, ValidationRuleset>>(fieldRules: Rules) =>
-  <Vals extends Record<keyof Rules, any>>(
-      values: Vals,
-    ): {
-    values: Vals
-    hasErrors: boolean
-    errors: Partial<Record<keyof Rules, string[]>>
-  } => {
-    const errors = Object.keys(fieldRules).reduce((errs, fieldName) => {
-      if (!(fieldName in values)) {
-        throw new Error(
-          `Field ${fieldName} is not in the object being validated`,
-        )
-      }
+	<Rules extends Record<string, ValidationRuleset>>(fieldRules: Rules) =>
+	<Vals extends Record<keyof Rules, any>>(
+		values: Vals,
+	): {
+		values: Vals
+		hasErrors: boolean
+		errors: Partial<Record<keyof Rules, string[]>>
+	} => {
+		const errors = Object.keys(fieldRules).reduce((errs, fieldName) => {
+			if (!(fieldName in values)) {
+				throw new Error(`Field ${fieldName} is not in the object being validated`)
+			}
 
-      const applyFieldChecks: ValidationCheck = pipeValidators(
-        fieldRules[fieldName],
-        values,
-      )
-      const checkResults: ValidationM = applyFieldChecks(
-        values[fieldName],
-        values,
-      )
+			const applyFieldChecks: ValidationCheck<any, Vals> = pipeValidators(
+				fieldRules[fieldName],
+				values,
+			)
+			const checkResults: ValidationM<any> = applyFieldChecks(values[fieldName], values)
 
-      if (!checkResults.isSuccess) {
-        errs[fieldName] = checkResults.errors
-      }
+			if (!checkResults.isSuccess) {
+				errs[fieldName] = checkResults.errors
+			}
 
-      return errs
-    }, {})
+			return errs
+		}, {})
 
-    return {
-      values,
-      hasErrors: Object.keys(errors).length > 0,
-      errors,
-    }
-  }
+		return {
+			values,
+			hasErrors: Object.keys(errors).length > 0,
+			errors,
+		}
+	}
 
-export {
-  checkIsValidationM,
-  id,
-  pipeValidators,
-  returnConstant,
-  validateObject,
-  ValidationError,
-}
+export { checkIsValidationM, id, pipeValidators, returnConstant, validateObject, ValidationError }
