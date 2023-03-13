@@ -1,4 +1,4 @@
-import { pipeValidators, ValidationError } from './internal/utils'
+import { ValidationError, pipeValidators } from './internal/utils'
 import { ValidationActions, ValidationM, ValidationRuleset } from './types'
 
 /**
@@ -7,43 +7,45 @@ import { ValidationActions, ValidationM, ValidationRuleset } from './types'
  *
  */
 
-class Validator implements Validator {
-  static of(...rules: ValidationRuleset) {
-    return new Validator(...rules)
-  }
+class Validator<ValueType, OnSuccessReturns = any, OnFailReturns = any> {
+	static of<T>(...rules: ValidationRuleset<T>) {
+		return new Validator<T>(...rules)
+	}
 
-  rules: ValidationRuleset = []
-  result: ValidationM | null = null
+	rules: ValidationRuleset<ValueType> = []
+	result: ValidationM<ValueType, OnSuccessReturns, OnFailReturns> | null = null
 
-  constructor(...rules: ValidationRuleset) {
-    this.rules = rules.flat()
-  }
+	constructor(...rules: ValidationRuleset<ValueType>) {
+		this.rules = rules.flat()
+	}
 
-  /**
-   * Run all of the supplied validators against the value that Validator() was supplied with,
-   * then operate on the results based on whether this succeeded or failed.
-   * @param {Object} opts
-   * @property {Function} onSuccess
-   * @property {Function} onFail
-   *
-   * @returns {Any} result
-   */
-  validate(value: any): Validator {
-    this.result = pipeValidators(this.rules)(value)
+	/**
+	 * Run all of the supplied validators against the value that Validator() was supplied with,
+	 * then operate on the results based on whether this succeeded or failed.
+	 * @param {Object} opts
+	 * @property {Function} onSuccess
+	 * @property {Function} onFail
+	 *
+	 * @returns {Any} result
+	 */
+	validate(value: ValueType): Validator<ValueType, OnSuccessReturns, OnFailReturns> {
+		this.result = pipeValidators(this.rules)(value)
 
-    return this
-  }
+		return this
+	}
 
-  // eslint-disable-next-line unicorn/no-thenable
-  then(opts: ValidationActions) {
-    if (this.result) {
-      return this.result.fold(opts)
-    } else {
-      throw new ValidationError(
-        `Validator failed to run - did you supply rules and use validate() first?`
-      )
-    }
-  }
+	// eslint-disable-next-line unicorn/no-thenable
+	then(opts: ValidationActions<ValueType, OnSuccessReturns, OnFailReturns>) {
+		if (this.result) {
+			// @ts-expect-error Success and Fail have different returns but it's ok here since we only use 1 of them
+			// every time
+			return this.result.fold(opts)
+		} else {
+			throw new ValidationError(
+				'Validator failed to run - did you supply rules and use validate() first?',
+			)
+		}
+	}
 }
 
 export { Validator }

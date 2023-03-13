@@ -1,40 +1,42 @@
 import { checkIsValidationM } from './internal/utils'
-import { ValidationActions, ValidationM } from './types'
+import type { ValidationActions, ValidationM } from './types'
 
-class Success implements Success {
-  static of(value: any): Success {
-    return new Success(value)
-  }
+class Success<ValueType, OnSuccessReturns = void> implements Success<ValueType, OnSuccessReturns> {
+	static of<T>(value: T): Success<T> {
+		return new Success(value)
+	}
 
-  isSuccess = true
-  errors = []
-  value: any = null
+	isSuccess = true
+	errors = []
+	value: ValueType = null
 
-  constructor(value: any) {
-    this.value = value
-    this.errors = []
-  }
+	constructor(value: ValueType) {
+		this.value = value
+		this.errors = []
+	}
 
-  map(fn: (v: any) => any) {
-    return new Success(fn(this.value))
-  }
+	map<Returns>(fn: (v: ValueType) => Returns): Success<Returns> {
+		return new Success(fn(this.value))
+	}
 
-  chain(validationFn: (v: any) => ValidationM): ValidationM {
-    try {
-      const result = validationFn(this.value)
+	chain(
+		validationFn: (v: NonNullable<ValueType>) => ValidationM<ValueType>,
+	): ValidationM<ValueType> {
+		try {
+			const result = validationFn(this.value)
 
-      checkIsValidationM(result)
+			checkIsValidationM(result)
 
-      return result
-    } catch (error) {
-      console.error(error.message)
-      console.error(error.stack)
-    }
-  }
+			return result
+		} catch (error) {
+			console.error(error.message)
+			console.error(error.stack)
+		}
+	}
 
-  fold({ onSuccess }: ValidationActions) {
-    return onSuccess(this.value)
-  }
+	fold({ onSuccess }: ValidationActions<ValueType, OnSuccessReturns, void>) {
+		return onSuccess(this.value)
+	}
 }
 
 export { Success }

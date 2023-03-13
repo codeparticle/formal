@@ -11,7 +11,7 @@ import { createRule } from '../rule'
  * @param regex {RegExp} validation regex
  */
 export const matchesRegex = (regex: RegExp) =>
-  createRule({
-    condition: (maybeStr: string) => regex.test(maybeStr),
-    message: (val) => `Value ${val} does not match regular expression ${regex}`,
-  })
+	createRule({
+		condition: (maybeStr: string) => regex.test(maybeStr),
+		message: (val) => `Value ${val} does not match regular expression ${regex}`,
+	})

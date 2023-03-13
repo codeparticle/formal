@@ -6,10 +6,9 @@
 import { createRule } from '../rule'
 
 const isEqualTo = (value) =>
-  createRule({
-    condition: (val) =>
-      typeof value === `function` ? val === value() : val === value,
-    message: () => `Values must be equal`,
-  })
+	createRule({
+		condition: (val) => (typeof value === 'function' ? val === value() : val === value),
+		message: () => 'Values must be equal',
+	})
 
 export { isEqualTo }

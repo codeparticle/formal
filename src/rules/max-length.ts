@@ -5,7 +5,7 @@ import { createRule } from '../rule'
  * @param {Number} maxLength - Max length of the string.
  */
 export const maxLength = (max) =>
-  createRule({
-    condition: (str) => Boolean(str) && str.length <= max,
-    message: `Must be shorter than ${max + 1} characters`,
-  })
+	createRule({
+		condition: (str) => Boolean(str) && str.length <= max,
+		message: `Must be shorter than ${max + 1} characters`,
+	})

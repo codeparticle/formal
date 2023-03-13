@@ -1,113 +1,82 @@
 {
-  "name": "@codeparticle/formal",
-  "version": "2.0.12",
-  "description": "A <2kb library for validating data of any kind",
-  "keywords": [
-    "validation",
-    "formal",
-    "form",
-    "prop-types",
-    "codeparticle"
-  ],
-  "main": "./index.js",
-  "module": "./index.mjs",
-  "es2015": "./index.mjs",
-  "typings": "./index.d.ts",
-  "sideEffects": false,
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/codeparticle/formal"
-  },
-  "author": "Nick Krause <synapseradio@gmail.com>",
-  "license": "MIT",
-  "engines": {
-    "node": ">=12.0.0"
-  },
-  "scripts": {
-    "cleanup": "shx rm -rf",
-    "prebuild": "yarn cleanup && yarn verify",
-    "build": "tsup",
-    "postbuild": "node scripts/copy && yarn size",
-    "docs": "typedoc -p . --theme minimal --target 'es6' --excludeNotExported --excludePrivate --ignoreCompilerErrors --exclude \"**/src/**/__tests__/*.*\" --out docs src/",
-    "test": "jest -c ./jest.config.js",
-    "test:watch": "yarn test -- --watch",
-    "test:coverage": "yarn test -- --coverage",
-    "test:ci": "yarn test -- --ci",
-    "validate-js": "tsc -p ./config && tsc -p ./scripts",
-    "verify": "yarn validate-js && yarn style && yarn test:ci",
-    "commit": "git-cz",
-    "lint": "eslint 'src/**/*.ts' 'test/**/*.ts'",
-    "style": "yarn lint -- --fix",
-    "prerelease": "yarn build",
-    "release": "standard-version",
-    "postrelease": "node scripts/copy && node scripts/build && yarn release:github && npm run release:npm",
-    "release:github": "git push --no-verify --follow-tags origin master",
-    "release:npm": "npm publish ./dist --access public",
-    "release:preflight": "npm pack ./dist --dry-run",
-    "size": "node scripts/file-size ./dist/index.js"
-  },
-  "config": {
-    "commitizen": {
-      "path": "cz-conventional-changelog"
-    }
-  },
-  "lint-staged": {
-    "**/*.{ts,tsx,js,jsx}": [
-      "yarn style"
-    ]
-  },
-  "dependencies": {
-    "case": "^1.6.3"
-  },
-  "devDependencies": {
-    "@commitlint/cli": "^17.0.0",
-    "@commitlint/config-conventional": "^17.0.0",
-    "@types/jest": "27.5.0",
-    "@types/node": "^18.0.0",
-    "@types/prettier": "^2.6.0",
-    "@types/webpack-config-utils": "2.3.1",
-    "@typescript-eslint/eslint-plugin": "^5.19.0",
-    "@typescript-eslint/parser": "5.54.1",
-    "brotli-size": "^4.0.0",
-    "commitizen": "^4.2.4",
-    "cz-conventional-changelog": "^3.3.0",
-    "eslint": "^8.13.0",
-    "eslint-config-adjunct": "^4.11.1",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-array-func": "^3.1.7",
-    "eslint-plugin-eslint-comments": "^3.2.0",
-    "eslint-plugin-html": "^7.1.0",
-    "eslint-plugin-jest": "^27.0.1",
-    "eslint-plugin-jest-async": "^1.0.3",
-    "eslint-plugin-json": "^3.1.0",
-    "eslint-plugin-markdown": "^3.0.0",
-    "eslint-plugin-no-constructor-bind": "^2.0.4",
-    "eslint-plugin-no-secrets": "^0.8.9",
-    "eslint-plugin-no-unsanitized": "^4.0.1",
-    "eslint-plugin-no-use-extend-native": "^0.5.0",
-    "eslint-plugin-optimize-regex": "^1.2.1",
-    "eslint-plugin-promise": "^6.0.0",
-    "eslint-plugin-scanjs-rules": "^0.2.1",
-    "eslint-plugin-security": "^1.4.0",
-    "eslint-plugin-simple-import-sort": "^8.0.0",
-    "eslint-plugin-sonarjs": "^0.18.0",
-    "eslint-plugin-switch-case": "^1.1.2",
-    "eslint-plugin-unicorn": "^45.0.1",
-    "gzip-size": "^6.0.0",
-    "husky": "^8.0.2",
-    "jest": "^27.5.1",
-    "jest-watch-typeahead": "^2.0.0",
-    "kleur": "^4.1.4",
-    "lint-staged": "^13.0.0",
-    "prettier": "^2.6.2",
-    "pretty-bytes": "^5.6.0",
-    "shx": "^0.3.4",
-    "standard-version": "^9.3.2",
-    "ts-jest": "^27.1.4",
-    "tslib": "^2.3.1",
-    "tsup": "^6.1.0",
-    "typedoc": "^0.23.1",
-    "typescript": "^4.6.3",
-    "webpack-config-utils": "^2.3.1"
-  }
+	"name": "@codeparticle/formal",
+	"version": "2.0.12",
+	"description": "A <2kb library for validating data of any kind",
+	"keywords": ["validation", "formal", "form", "prop-types", "codeparticle"],
+	"main": "./index.js",
+	"module": "./index.mjs",
+	"es2015": "./index.mjs",
+	"typings": "./index.d.ts",
+	"sideEffects": false,
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/codeparticle/formal"
+	},
+	"author": "Nick Krause <synapseradio@gmail.com>",
+	"license": "MIT",
+	"engines": {
+		"node": ">=12.0.0"
+	},
+	"scripts": {
+		"cleanup": "shx rm -rf",
+		"prebuild": "yarn cleanup && yarn verify",
+		"build": "tsup",
+		"postbuild": "node scripts/copy && yarn size",
+		"docs": "typedoc -p . --theme minimal --target 'es6' --excludeNotExported --excludePrivate --ignoreCompilerErrors --exclude \"**/src/**/__tests__/*.*\" --out docs src/",
+		"test": "jest -c ./jest.config.js",
+		"test:watch": "yarn test -- --watch",
+		"test:coverage": "yarn test -- --coverage",
+		"test:ci": "yarn test -- --ci",
+		"validate-js": "tsc -p ./config && tsc -p ./scripts",
+		"verify": "yarn validate-js && yarn style && yarn test:ci",
+		"commit": "git-cz",
+		"lint": "rome check .",
+		"style": "rome format --write .",
+		"prerelease": "yarn build",
+		"release": "standard-version",
+		"postrelease": "node scripts/copy && node scripts/build && yarn release:github && npm run release:npm",
+		"release:github": "git push --no-verify --follow-tags origin master",
+		"release:npm": "npm publish ./dist --access public",
+		"release:preflight": "npm pack ./dist --dry-run",
+		"size": "node scripts/file-size ./dist/index.js"
+	},
+	"config": {
+		"commitizen": {
+			"path": "cz-conventional-changelog"
+		}
+	},
+	"lint-staged": {
+		"**/*.{ts,tsx,js,jsx}": ["yarn style"]
+	},
+	"dependencies": {
+		"case": "^1.6.3"
+	},
+	"devDependencies": {
+		"@commitlint/cli": "^17.4.4",
+		"@commitlint/config-conventional": "^17.4.4",
+		"@types/jest": "27.5.0",
+		"@types/node": "^18.15.1",
+		"@types/prettier": "^2.7.2",
+		"@types/webpack-config-utils": "2.3.1",
+		"brotli-size": "^4.0.0",
+		"commitizen": "^4.3.0",
+		"cz-conventional-changelog": "^3.3.0",
+		"gzip-size": "^6.0.0",
+		"husky": "^8.0.3",
+		"jest": "^27.5.1",
+		"jest-watch-typeahead": "^2.2.2",
+		"kleur": "^4.1.5",
+		"lint-staged": "^13.2.0",
+		"prettier": "^2.8.4",
+		"pretty-bytes": "^5.6.0",
+		"rome": "^11.0.0",
+		"shx": "^0.3.4",
+		"standard-version": "^9.5.0",
+		"ts-jest": "^27.1.5",
+		"tslib": "^2.5.0",
+		"tsup": "^6.6.3",
+		"typedoc": "^0.23.26",
+		"typescript": "^4.9.5",
+		"webpack-config-utils": "^2.3.1"
+	}
 }
