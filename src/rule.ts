@@ -2,9 +2,9 @@
  * @file Rule class for use with createRule and withMessage
  * @author Nick Krause
  */
-import { Fail } from "./fail";
-import { Success } from "./success";
-import { CustomValidatorOptions, ValidationCheck, ValidationRule } from "./types";
+import { Fail } from './fail'
+import { Success } from './success'
+import { CustomValidatorOptions, ValidationCheck, ValidationRule } from './types'
 
 class Rule<
 	ValueType,
@@ -12,11 +12,11 @@ class Rule<
 	FormValues extends Record<string, any> | undefined = undefined,
 > implements ValidationRule<ValueType>
 {
-	message: string | ((v?: ValueType) => string);
-	opts: CustomValidatorOptions<ValueType, TransformReturns>;
+	message: string | ((v?: ValueType) => string)
+	opts: CustomValidatorOptions<ValueType, TransformReturns>
 
 	constructor(opts: CustomValidatorOptions<ValueType, TransformReturns>) {
-		this.opts = opts;
+		this.opts = opts
 	}
 
 	check: ValidationCheck<ValueType, FormValues> = (value) => {
@@ -25,16 +25,16 @@ class Rule<
 			// called transform that allows us to change the value
 			// before it is passed onto the next check.
 			if (this.opts.transform) {
-				return Success.of(this.opts.transform(value) as Exclude<never, TransformReturns>);
+				return Success.of(this.opts.transform(value) as Exclude<never, TransformReturns>)
 			}
 
-			return Success.of(value);
+			return Success.of(value)
 		} else {
-			return typeof this.opts.message === "function"
+			return typeof this.opts.message === 'function'
 				? Fail.of(value, [this.opts.message(value)].flat())
-				: Fail.of(value, [this.opts.message].flat());
+				: Fail.of(value, [this.opts.message].flat())
 		}
-	};
+	}
 }
 
 /**
@@ -47,11 +47,11 @@ const createRule = <
 	opts: Opts,
 ) => {
 	return new Rule<
-		Parameters<Opts["condition"]>[0],
-		Opts["transform"] extends undefined ? never : ReturnType<Opts["transform"]>,
+		Parameters<Opts['condition']>[0],
+		Opts['transform'] extends undefined ? never : ReturnType<Opts['transform']>,
 		FormValues
-	>(opts);
-};
+	>(opts)
+}
 
 /**
  * Method to overwrite the message of a rule.
@@ -62,6 +62,6 @@ const createRule = <
 const withMessage =
 	<ValueType>(message: string | ((v?: ValueType) => string)) =>
 	(rule: ValidationRule<ValueType>) =>
-		new Rule({ ...rule.opts, message });
+		new Rule({ ...rule.opts, message })
 
-export { createRule, Rule, withMessage };
+export { createRule, Rule, withMessage }

@@ -55,8 +55,7 @@
 		"@commitlint/cli": "^17.4.4",
 		"@commitlint/config-conventional": "^17.4.4",
 		"@types/jest": "27.5.0",
-		"@types/node": "^18.15.1",
-		"@types/prettier": "^2.7.2",
+		"@types/node": "^18.15.2",
 		"@types/webpack-config-utils": "2.3.1",
 		"brotli-size": "^4.0.0",
 		"commitizen": "^4.3.0",
@@ -67,7 +66,6 @@
 		"jest-watch-typeahead": "^2.2.2",
 		"kleur": "^4.1.5",
 		"lint-staged": "^13.2.0",
-		"prettier": "^2.8.4",
 		"pretty-bytes": "^5.6.0",
 		"rome": "^11.0.0",
 		"shx": "^0.3.4",
@@ -76,7 +74,6 @@
 		"tslib": "^2.5.0",
 		"tsup": "^6.6.3",
 		"typedoc": "^0.23.26",
-		"typescript": "^4.9.5",
-		"webpack-config-utils": "^2.3.1"
+		"typescript": "^4.9.5"
 	}
 }
