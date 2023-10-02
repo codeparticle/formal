@@ -65,7 +65,7 @@
     "@types/jest": "27.5.0",
     "@types/node": "^18.0.0",
     "@types/prettier": "^2.6.0",
-    "@types/webpack-config-utils": "2.3.1",
+    "@types/webpack-config-utils": "2.3.2",
     "@typescript-eslint/eslint-plugin": "^5.19.0",
     "@typescript-eslint/parser": "5.62.0",
     "brotli-size": "^4.0.0",
