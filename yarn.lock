@@ -2624,10 +2624,10 @@ eslint-plugin-simple-import-sort@^8.0.0:
   resolved "https://registry.yarnpkg.com/eslint-plugin-simple-import-sort/-/eslint-plugin-simple-import-sort-8.0.0.tgz#9d9a2372b0606e999ea841b10458a370a6ccc160"
   integrity sha512-bXgJQ+lqhtQBCuWY/FUWdB27j4+lqcvXv5rUARkzbeWLwea+S5eBZEQrhnO+WgX3ZoJHVj0cn943iyXwByHHQw==
 
-eslint-plugin-sonarjs@^0.21.0:
-  version "0.21.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-sonarjs/-/eslint-plugin-sonarjs-0.21.0.tgz#1917f4d3de0ae72495a594142f51c1576f82e2c7"
-  integrity sha512-oezUDfFT5S6j3rQheZ4DLPrbetPmMS7zHIKWGHr0CM3g5JgyZroz1FpIKa4jV83NsGpmgIeagpokWDKIJzRQmw==
+eslint-plugin-sonarjs@^0.23.0:
+  version "0.23.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-sonarjs/-/eslint-plugin-sonarjs-0.23.0.tgz#0265bad801ea210951672ee3cafbcf5d456ada96"
+  integrity sha512-z44T3PBf9W7qQ/aR+NmofOTyg6HLhSEZOPD4zhStqBpLoMp8GYhFksuUBnCxbnf1nfISpKBVkQhiBLFI/F4Wlg==
 
 eslint-plugin-switch-case@^1.1.2:
   version "1.1.2"
