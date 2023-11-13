@@ -1164,10 +1164,10 @@
   resolved "https://registry.yarnpkg.com/@types/unist/-/unist-2.0.6.tgz#250a7b16c3b91f672a24552ec64678eeb1d3a08d"
   integrity sha512-PBjIUxZHOuj0R15/xuwJYjFi+KZdNFrehocChv4g5hu6aFroHue8m0lBP0POdK2nKzbw0cgV1mws8+V/JAcEkQ==
 
-"@types/webpack-config-utils@2.3.3":
-  version "2.3.3"
-  resolved "https://registry.yarnpkg.com/@types/webpack-config-utils/-/webpack-config-utils-2.3.3.tgz#f9d14fa008ed83bcbcaf752ba111f283b87e195e"
-  integrity sha512-DY0B6tnY1WRREEb6agQJBMF89146H181X3YObcQlcsxS0u0SWeIVgdlGoedvpmedos1OR6IssfZ0dMvRI2bOqA==
+"@types/webpack-config-utils@2.3.4":
+  version "2.3.4"
+  resolved "https://registry.yarnpkg.com/@types/webpack-config-utils/-/webpack-config-utils-2.3.4.tgz#4367e04e029828589bae1e495879f1090455fa26"
+  integrity sha512-xlzPhnmFO1NnmFMz3pa+CFcSGz8p4pVfhGjQqlJZyChX2j3DxQ/yxbvS+wGWcyxdqyynlATyY86dN4ZSl4DkoQ==
 
 "@types/yargs-parser@*":
   version "21.0.0"
