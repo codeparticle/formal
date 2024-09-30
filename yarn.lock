@@ -2578,9 +2578,9 @@ eslint-plugin-no-secrets@^0.9.1:
   integrity sha512-41GIjvJd/jcqKyr7H4F4FpelFh5Kzdpjk34IfzvzftZPCU0VRA9fKmQdLvPsRt9hifhZfBlqX4h4igdCD/SSwQ==
 
 eslint-plugin-no-unsanitized@^4.0.1:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-no-unsanitized/-/eslint-plugin-no-unsanitized-4.1.0.tgz#2c914e8ea8048c3afaac8f0c12384747aba6497a"
-  integrity sha512-9A8Yrbkkex8e56ivxJ2f5dXN2Js2BmKC8QgmeYZjadyiGUngo3KLXDlq6ZzalmCHyLwLF5MoQLPR6FWlNc+Qbw==
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-no-unsanitized/-/eslint-plugin-no-unsanitized-4.1.1.tgz#15e638416fcac50c4f1d4d13473cfa339ea163aa"
+  integrity sha512-N0yf7iYWQAO/qiglZlrASXRf6I/18q9d9NNR5Vw175zgrPduvLfnBwgWwM75D4g4lbrd9uPNXlieaFGWZ40h4A==
 
 eslint-plugin-no-use-extend-native@^0.5.0:
   version "0.5.0"
