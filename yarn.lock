@@ -2572,10 +2572,10 @@ eslint-plugin-no-constructor-bind@^2.0.4:
   dependencies:
     requireindex "~1.2.0"
 
-eslint-plugin-no-secrets@^0.9.1:
-  version "0.9.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-no-secrets/-/eslint-plugin-no-secrets-0.9.1.tgz#9835481981abda67d651e04c177ee1fc7ee52d17"
-  integrity sha512-41GIjvJd/jcqKyr7H4F4FpelFh5Kzdpjk34IfzvzftZPCU0VRA9fKmQdLvPsRt9hifhZfBlqX4h4igdCD/SSwQ==
+eslint-plugin-no-secrets@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-no-secrets/-/eslint-plugin-no-secrets-2.1.1.tgz#784f7499f0091f9b33e4319c289e2c4bf4ea1935"
+  integrity sha512-jcxk11tA3riniLoI5UqUtrW6/nmC60pNAG1NFpXrenzAu0Hmbjxq63e27YhvNIq+exT2yMZLvCqAQ+lC/+ZWZA==
 
 eslint-plugin-no-unsanitized@^4.0.1:
   version "4.1.2"
