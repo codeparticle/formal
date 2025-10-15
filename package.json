@@ -1,6 +1,6 @@
 {
   "name": "@codeparticle/formal",
-  "version": "2.0.43",
+  "version": "2.0.44",
   "description": "A <2kb library for validating data of any kind",
   "keywords": [
     "validation",
