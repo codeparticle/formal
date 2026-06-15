@@ -2646,10 +2646,10 @@ eslint-plugin-scanjs-rules@^0.2.1:
     babel-eslint ">=4.1.1"
     eslint ">=1.1"
 
-eslint-plugin-security@^1.4.0:
-  version "1.7.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-security/-/eslint-plugin-security-1.7.1.tgz#0e9c4a471f6e4d3ca16413c7a4a51f3966ba16e4"
-  integrity sha512-sMStceig8AFglhhT2LqlU5r+/fn9OwsA72O5bBuQVTssPCdQAOQzL+oMn/ZcpeUY6KcNfLJArgcrsSULNjYYdQ==
+eslint-plugin-security@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-security/-/eslint-plugin-security-4.0.1.tgz#e54202ab678f6c456efdd11b222db1d70842728c"
+  integrity sha512-/lZCkOxPOWaf1jXAqgICrS8St3BMBccIPvhOSUYuV6VCr1o5nFVG998FnTLt6w2Nxb8Uo0nM8fzmnhp+GY/aEg==
   dependencies:
     safe-regex "^2.1.1"
 
